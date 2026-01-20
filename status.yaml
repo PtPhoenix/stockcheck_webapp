@@ -144,3 +144,77 @@ status_history:
     metrics:
       stages_completed: 3
       chapters_completed: 1
+  - status_id: "status-0005"
+    timestamp_tashkent: "2026-01-20T15:16:00+05:00"
+    current_position:
+      chapter_id: "CHAPTER 2"
+      stage_id: "STAGE 2.2"
+      stage_title: "Login API"
+    done:
+      summary:
+        - "Implemented User model for authentication."
+        - "Added password hashing utilities."
+        - "Added admin seed helper and admin credentials config."
+      details:
+        - "Created backend/app/models/user.py with users table and fields."
+        - "Added backend/app/core/security.py with pbkdf2_hmac hashing and verification."
+        - "Added backend/app/db/seed.py to create admin user if missing."
+        - "Extended backend/app/core/config.py and .env.example with admin credentials."
+    next_actions_current_stage:
+      - "Implement POST /auth/login."
+      - "Issue authentication token (JWT) and store in cookie (HttpOnly)."
+      - "Implement GET /auth/me for session validation."
+      - "Implement POST /auth/logout to clear authentication cookie."
+    dod_evidence:
+      - "backend/app/models/user.py created."
+      - "backend/app/core/security.py created."
+      - "backend/app/db/seed.py created."
+      - "backend/app/core/config.py updated with admin credentials."
+      - ".env.example updated with admin credentials."
+    decisions:
+      - "Password hashing uses pbkdf2_hmac with per-user salt."
+      - "Admin account seeding is provided via ensure_admin_user helper."
+    open_questions:
+      - "Choose frontend framework: React or Vue."
+      - "Choose API client: fetch or axios."
+    metrics:
+      stages_completed: 4
+      chapters_completed: 1
+  - status_id: "status-0006"
+    timestamp_tashkent: "2026-01-20T15:23:00+05:00"
+    current_position:
+      chapter_id: "CHAPTER 2"
+      stage_id: "STAGE 2.3"
+      stage_title: "Protected API Access"
+    done:
+      summary:
+        - "Implemented login API with JWT in HttpOnly cookie."
+        - "Added session validation and logout endpoints."
+        - "Added JWT utilities and request authentication dependency."
+      details:
+        - "Added backend/app/api/auth.py with /auth/login, /auth/me, /auth/logout."
+        - "Added backend/app/core/jwt.py for token creation/decoding and backend/app/core/auth.py for current user dependency."
+        - "Added backend/app/db/deps.py for DB session dependency and auth schemas in backend/app/schemas/auth.py."
+        - "Extended settings and .env.example with token expiry and added PyJWT dependency."
+    next_actions_current_stage:
+      - "Create backend dependency for authenticated requests."
+      - "Protect all business endpoints behind login."
+    dod_evidence:
+      - "backend/app/api/auth.py created."
+      - "backend/app/core/jwt.py created."
+      - "backend/app/core/auth.py created."
+      - "backend/app/schemas/auth.py created."
+      - "backend/app/main.py updated to include auth router."
+      - "backend/requirements.txt updated with PyJWT."
+      - "Manual check: .venv/bin/python -c \"from app.db.session import engine; print(engine)\" => Engine(sqlite:///./app.db)."
+      - "Manual check: .venv/bin/alembic -c alembic.ini current => Alembic context initialized without errors."
+      - "Manual check: .venv/bin/uvicorn app.main:app failed to bind on 127.0.0.1:8000 (port already in use)."
+    decisions:
+      - "JWT is stored in HttpOnly cookie named access_token."
+      - "Token expiration is configurable via ACCESS_TOKEN_EXPIRE_MINUTES."
+    open_questions:
+      - "Choose frontend framework: React or Vue."
+      - "Choose API client: fetch or axios."
+    metrics:
+      stages_completed: 5
+      chapters_completed: 1
