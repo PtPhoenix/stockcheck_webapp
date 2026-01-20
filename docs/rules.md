@@ -81,12 +81,9 @@ A stage is considered complete only when:
 
 ## 5) STATUS Update & Synchronization Protocol
 
-1. **Before updating STATUS.yaml, the assistant must ask the user for the current date/time**
-   using the required timezoTashkent (UTC+05:00)0)**.
+1. The assistant must follow the rules from SYNC-PROTOCOL.md.
 
-2. The assistant must follow the rules from SYNC-PROTOCOL.md.
-
-3. Past versions are immutable:
+2. Past versions are immutable:
 
    * previous status entries must never be edited,
    * a new version must be created with a unique status_id.
@@ -117,17 +114,6 @@ A stage is considered complete only when:
 
 ---
 
-# SYNC-PROTOCOL.md — Formal Chat Synchronization Protocol (Updated)
-
-## 1) Timezone & Time Format Requirements
-
-* Required timezoTashkent (UTC+05:00)0)**
-* Required time formISO-860101** with explicit offset +05:00
-
-Example:
-2026-01-20T14:30:00+05:00
-
----
 
 ## 2) STATUS.yaml Authority
 

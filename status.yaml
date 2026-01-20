@@ -244,3 +244,86 @@ status_history:
     metrics:
       stages_completed: 6
       chapters_completed: 1
+  - status_id: "status-0008"
+    timestamp_tashkent: "2026-01-20T15:32:36+05:00"
+    current_position:
+      chapter_id: "CHAPTER 3"
+      stage_id: "STAGE 3.2"
+      stage_title: "Product CRUD API"
+    done:
+      summary:
+        - "Implemented Product model with low-stock and active flags."
+      details:
+        - "Added Product SQLAlchemy model with name, unit, min_stock, low_stock_enabled, and is_active fields."
+        - "Registered models import for Alembic metadata discovery."
+    next_actions_current_stage:
+      - "Implement product create endpoint."
+      - "Implement product update endpoint."
+      - "Implement product delete/deactivate endpoint."
+      - "Implement product list endpoint with pagination."
+    dod_evidence:
+      - "backend/app/models/product.py created."
+      - "backend/app/models/__init__.py updated to export Product."
+      - "backend/alembic/env.py updated to import app.models."
+    decisions:
+      - "Product model uses is_active for soft delete and low_stock_enabled to control alerts."
+    open_questions:
+      - "Choose frontend framework: React or Vue."
+      - "Choose API client: fetch or axios."
+    metrics:
+      stages_completed: 7
+      chapters_completed: 1
+  - status_id: "status-0009"
+    timestamp_tashkent: "2026-01-20T15:36:57+05:00"
+    current_position:
+      chapter_id: "CHAPTER 3"
+      stage_id: "STAGE 3.3"
+      stage_title: "Search Support"
+    done:
+      summary:
+        - "Added Product CRUD API with pagination."
+      details:
+        - "Implemented create, update, list, and deactivate endpoints under /products."
+        - "Added Product request/response schemas with pagination wrapper."
+        - "Protected product routes behind authentication dependency."
+    next_actions_current_stage:
+      - "Add product search by name to list endpoint."
+      - "Validate search behavior (case-insensitive, partial match)."
+    dod_evidence:
+      - "backend/app/api/products.py created with POST/PUT/DELETE/GET endpoints."
+      - "backend/app/schemas/product.py created."
+      - "backend/app/schemas/__init__.py updated with product schemas."
+      - "backend/app/main.py updated to include products router."
+    decisions:
+      - "Product list endpoint returns paginated items with total, skip, and limit."
+    open_questions:
+      - "Choose frontend framework: React or Vue."
+      - "Choose API client: fetch or axios."
+    metrics:
+      stages_completed: 8
+      chapters_completed: 1
+  - status_id: "status-0010"
+    timestamp_tashkent: "2026-01-20T15:37:37+05:00"
+    current_position:
+      chapter_id: "CHAPTER 4"
+      stage_id: "STAGE 4.1"
+      stage_title: "Movement Model"
+    done:
+      summary:
+        - "Added product search by name to the list endpoint."
+      details:
+        - "List endpoint supports case-insensitive partial matching via query parameter."
+    next_actions_current_stage:
+      - "Implement StockMovement model."
+      - "Support movement types: IN and OUT."
+      - "Store quantity, timestamp, optional note, created_by."
+    dod_evidence:
+      - "backend/app/api/products.py updated with search filter on name."
+    decisions:
+      - "Search uses case-insensitive partial match."
+    open_questions:
+      - "Choose frontend framework: React or Vue."
+      - "Choose API client: fetch or axios."
+    metrics:
+      stages_completed: 9
+      chapters_completed: 1
