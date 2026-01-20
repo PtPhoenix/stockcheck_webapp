@@ -218,3 +218,29 @@ status_history:
     metrics:
       stages_completed: 5
       chapters_completed: 1
+  - status_id: "status-0007"
+    timestamp_tashkent: "2026-01-20T15:27:00+05:00"
+    current_position:
+      chapter_id: "CHAPTER 3"
+      stage_id: "STAGE 3.1"
+      stage_title: "Product Model"
+    done:
+      summary:
+        - "Added protected router scaffold for authenticated business APIs."
+      details:
+        - "Created backend/app/api/protected.py with APIRouter dependency on get_current_user."
+    next_actions_current_stage:
+      - "Implement Product model."
+      - "Include per-product low-stock threshold (min_stock)."
+      - "Include product-level low-stock enable flag (low_stock_enabled)."
+      - "Add soft-delete support (active/inactive)."
+    dod_evidence:
+      - "backend/app/api/protected.py created."
+    decisions:
+      - "Business endpoints will use a shared router with get_current_user dependency."
+    open_questions:
+      - "Choose frontend framework: React or Vue."
+      - "Choose API client: fetch or axios."
+    metrics:
+      stages_completed: 6
+      chapters_completed: 1
