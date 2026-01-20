@@ -1,0 +1,46 @@
+schema_version: "1.0"
+project:
+  name: "Inventory Management System (MVP)"
+  description_ref: "DESCRIPTION.md"
+  roadmap_ref: "ROADMAP.md"
+  rules_ref: "RULES.md"
+  sync_protocol_ref: "SYNC-PROTOCOL.md"
+
+stack:
+  backend:
+    language: "Python"
+    framework: "FastAPI"
+    database: "SQLite"
+    orm: "SQLAlchemy"
+    migrations: "Alembic"
+    auth: "JWT in HttpOnly cookie"
+  frontend:
+    framework: "React or Vue (TBD)"
+    api_client: "fetch or axios (TBD)"
+
+status_history:
+  - status_id: "status-0001"
+    timestamp_tashkent: "2026-01-20T00:00:00+05:00"
+    current_position:
+      chapter_id: "CHAPTER 1"
+      stage_id: "STAGE 1.1"
+      stage_title: "Repository & Workspace Setup"
+    done:
+      summary: []
+      details: []
+    next_actions_current_stage:
+      - "Create monorepo structure: backend/ and frontend/"
+      - "Initialize Git repository and add .gitignore"
+      - "Add .env.example and minimal README"
+    dod_evidence:
+      - "No evidence yet (project not started)."
+    decisions:
+      - "Backend stack selected: FastAPI + SQLAlchemy + Alembic + SQLite."
+      - "Frontend stack will be React or Vue (not decided yet)."
+      - "Auth approach planned: JWT stored in HttpOnly cookie."
+    open_questions:
+      - "Choose frontend framework: React or Vue."
+      - "Choose API client: fetch or axios."
+    metrics:
+      stages_completed: 0
+      chapters_completed: 0
