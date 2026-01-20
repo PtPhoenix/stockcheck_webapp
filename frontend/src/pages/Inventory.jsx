@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import MovementModal from '../components/MovementModal.jsx'
@@ -7,6 +7,8 @@ import {
   createProduct,
   deactivateProduct,
   deleteProduct,
+  getLowStockCount,
+  getSettings,
   getStockOverview,
   listProducts,
   updateProduct,
@@ -49,6 +51,14 @@ function Inventory() {
   const [productFormSaving, setProductFormSaving] = useState(false)
   const [movementModalOpen, setMovementModalOpen] = useState(false)
   const [movementInitial, setMovementInitial] = useState({ productId: '', type: 'IN' })
+  const [lowStockPopupOpen, setLowStockPopupOpen] = useState(false)
+  const [lowStockCount, setLowStockCount] = useState(0)
+  const [lowStockSettings, setLowStockSettings] = useState({
+    low_stock_popup_enabled: true,
+    low_stock_pin_enabled: true,
+    popup_cooldown_hours: 24,
+  })
+  const prevLowStockCountRef = useRef(0)
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -139,6 +149,74 @@ function Inventory() {
     }
   }, [productSearch, productsRefresh])
 
+  useEffect(() => {
+    if (!user?.email) {
+      return
+    }
+    const storageUserKey = 'lowStockPopupUser'
+    const storageKeyBase = `lowStockPopup:${user.email}`
+    const previousUser = sessionStorage.getItem(storageUserKey)
+    if (previousUser !== user.email) {
+      sessionStorage.setItem(storageUserKey, user.email)
+      sessionStorage.removeItem(`${storageKeyBase}:lastSeen`)
+      sessionStorage.removeItem(`${storageKeyBase}:count`)
+      prevLowStockCountRef.current = 0
+      return
+    }
+    const storedCount = Number(sessionStorage.getItem(`${storageKeyBase}:count`) || 0)
+    prevLowStockCountRef.current = Number.isNaN(storedCount) ? 0 : storedCount
+  }, [user?.email])
+
+  useEffect(() => {
+    let active = true
+
+    const loadPopup = async () => {
+      try {
+        const [settingsData, countData] = await Promise.all([getSettings(), getLowStockCount()])
+        if (!active) {
+          return
+        }
+        setLowStockSettings(settingsData)
+        setLowStockCount(countData.count ?? 0)
+      } catch (err) {
+        if (!active) {
+          return
+        }
+      }
+    }
+
+    loadPopup()
+
+    return () => {
+      active = false
+    }
+  }, [user?.email, stockRefresh, productsRefresh])
+
+  useEffect(() => {
+    if (!lowStockSettings.low_stock_popup_enabled) {
+      return
+    }
+    if (!lowStockCount || lowStockCount <= 0) {
+      return
+    }
+    const cooldownMs = (lowStockSettings.popup_cooldown_hours || 24) * 60 * 60 * 1000
+    const storageKeyBase = `lowStockPopup:${user?.email || 'guest'}`
+    const lastSeen = Number(sessionStorage.getItem(`${storageKeyBase}:lastSeen`) || 0)
+    const now = Date.now()
+    const previousCount = prevLowStockCountRef.current
+    const countIncreased = lowStockCount > previousCount
+    prevLowStockCountRef.current = lowStockCount
+    sessionStorage.setItem(`${storageKeyBase}:count`, String(lowStockCount))
+    if (countIncreased) {
+      setLowStockPopupOpen(true)
+      return
+    }
+    if (now - lastSeen < cooldownMs) {
+      return
+    }
+    setLowStockPopupOpen(true)
+  }, [lowStockCount, lowStockSettings, user?.email])
+
   const onMovementAction = (type, item) => {
     setMovementInitial({ productId: item.id, type })
     setMovementModalOpen(true)
@@ -147,6 +225,21 @@ function Inventory() {
   const openMovementModal = () => {
     setMovementInitial({ productId: '', type: 'IN' })
     setMovementModalOpen(true)
+  }
+
+  const onPopupClose = () => {
+    const storageKeyBase = `lowStockPopup:${user?.email || 'guest'}`
+    sessionStorage.setItem(`${storageKeyBase}:lastSeen`, String(Date.now()))
+    setLowStockPopupOpen(false)
+  }
+
+  const onPopupHide = () => {
+    setLowStockPopupOpen(false)
+  }
+
+  const onPopupShowLowStock = () => {
+    setLowStockOnly(true)
+    onPopupClose()
   }
 
   const openCreateProduct = () => {
@@ -676,6 +769,32 @@ function Inventory() {
           setStockRefresh((value) => value + 1)
         }}
       />
+
+      {lowStockPopupOpen ? (
+        <div className="modal-backdrop" role="presentation">
+          <div className="modal">
+            <div className="modal-header">
+              <div>
+                <h3>Low stock detected</h3>
+                <p className="muted">
+                  {lowStockCount} {lowStockCount === 1 ? 'product' : 'products'} below minimum.
+                </p>
+              </div>
+              <button type="button" className="ghost mini" onClick={onPopupHide}>
+                Close
+              </button>
+            </div>
+            <div className="modal-actions">
+              <button type="button" className="ghost" onClick={onPopupClose}>
+                Dismiss
+              </button>
+              <button type="button" onClick={onPopupShowLowStock}>
+                Show low-stock
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </div>
   )
 }

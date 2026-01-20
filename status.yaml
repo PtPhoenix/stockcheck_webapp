@@ -862,3 +862,121 @@ status_history:
     metrics:
       stages_completed: 21
       chapters_completed: 1
+  - status_id: "status-0031"
+    timestamp_tashkent: "2026-01-20T17:37:05+05:00"
+    current_position:
+      chapter_id: "CHAPTER 6"
+      stage_id: "STAGE 6.2"
+      stage_title: "Frontend Popup Logic"
+    done:
+      summary:
+        - "Added low-stock popup logic to the inventory page."
+      details:
+        - "Popup respects settings, low-stock count, and cooldown stored in localStorage."
+        - "Popup actions allow showing low-stock filter or dismissing."
+    next_actions_current_stage:
+      - "Show a single popup if low-stock count > 0."
+      - "Respect cooldown to avoid repeated notifications."
+      - "Provide popup actions: Show low-stock and Close."
+    dod_evidence:
+      - "frontend/src/pages/Inventory.jsx updated with popup logic and UI."
+      - "frontend/src/lib/api.js updated with low stock count helper."
+    decisions:
+      - "Cooldown tracking stored in localStorage."
+    open_questions: []
+    metrics:
+      stages_completed: 21
+      chapters_completed: 1
+  - status_id: "status-0032"
+    timestamp_tashkent: "2026-01-20T17:37:59+05:00"
+    current_position:
+      chapter_id: "CHAPTER 6"
+      stage_id: "STAGE 6.3"
+      stage_title: "Low-Stock Pin-to-Top Behavior"
+    done:
+      summary:
+        - "User confirmed popup logic and approved moving to the next stage."
+      details:
+        - "Proceeding to implement low-stock pin-to-top behavior."
+    next_actions_current_stage:
+      - "If enabled, apply low-first sorting on the inventory page."
+      - "If disabled, use normal sorting only."
+    dod_evidence:
+      - "User confirmation to proceed from STAGE 6.2."
+    decisions: []
+    open_questions: []
+    metrics:
+      stages_completed: 22
+      chapters_completed: 1
+  - status_id: "status-0033"
+    timestamp_tashkent: "2026-01-20T17:43:13+05:00"
+    current_position:
+      chapter_id: "CHAPTER 6"
+      stage_id: "STAGE 6.2"
+      stage_title: "Frontend Popup Logic"
+    done:
+      summary:
+        - "Adjusted low-stock popup logic for relogin and new low-stock events."
+      details:
+        - "Popup now re-evaluates on inventory changes and shows when low-stock count increases."
+        - "Cooldown is tracked per session and reset on relogin."
+    next_actions_current_stage:
+      - "Show a single popup if low-stock count > 0."
+      - "Respect cooldown to avoid repeated notifications."
+      - "Provide popup actions: Show low-stock and Close."
+    dod_evidence:
+      - "frontend/src/pages/Inventory.jsx updated with session-aware popup logic."
+    decisions:
+      - "Cooldown is stored in sessionStorage and reset when the user session changes."
+      - "Popup displays immediately when low-stock count increases."
+    open_questions: []
+    metrics:
+      stages_completed: 22
+      chapters_completed: 1
+  - status_id: "status-0034"
+    timestamp_tashkent: "2026-01-20T17:47:21+05:00"
+    current_position:
+      chapter_id: "CHAPTER 6"
+      stage_id: "STAGE 6.2"
+      stage_title: "Frontend Popup Logic"
+    done:
+      summary:
+        - "Prevented low-stock popup from reappearing on every reload."
+      details:
+        - "Popup cooldown now persists per user within a session, while still resetting on user change."
+        - "Low-stock count tracking survives reload to avoid false 'increase' triggers."
+    next_actions_current_stage:
+      - "Show a single popup if low-stock count > 0."
+      - "Respect cooldown to avoid repeated notifications."
+      - "Provide popup actions: Show low-stock and Close."
+    dod_evidence:
+      - "frontend/src/pages/Inventory.jsx updated with session-aware popup storage."
+    decisions:
+      - "Popup state stores last seen and last count per user in sessionStorage."
+    open_questions: []
+    metrics:
+      stages_completed: 22
+      chapters_completed: 1
+  - status_id: "status-0035"
+    timestamp_tashkent: "2026-01-20T17:49:57+05:00"
+    current_position:
+      chapter_id: "CHAPTER 6"
+      stage_id: "STAGE 6.2"
+      stage_title: "Frontend Popup Logic"
+    done:
+      summary:
+        - "Separated popup Close and Dismiss behaviors."
+      details:
+        - "Close now hides the popup without updating cooldown."
+        - "Dismiss respects cooldown by recording last seen."
+    next_actions_current_stage:
+      - "Show a single popup if low-stock count > 0."
+      - "Respect cooldown to avoid repeated notifications."
+      - "Provide popup actions: Show low-stock and Close."
+    dod_evidence:
+      - "frontend/src/pages/Inventory.jsx updated with distinct Close/Dismiss behavior."
+    decisions: []
+    open_questions: []
+    metrics:
+      stages_completed: 22
+      chapters_completed: 1

@@ -137,3 +137,7 @@ export async function updateSettings(payload) {
     body: JSON.stringify(payload),
   })
 }
+
+export async function getLowStockCount() {
+  return request('/stock/low/count', { method: 'GET' })
+}
