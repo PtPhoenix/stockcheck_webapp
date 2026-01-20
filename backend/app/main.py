@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.api.auth import router as auth_router
 from app.api.movements import router as movements_router
 from app.api.products import router as products_router
+from app.api.stock import router as stock_router
 from app.core.config import settings
 
 
@@ -20,6 +21,7 @@ app.add_middleware(
 app.include_router(auth_router)
 app.include_router(movements_router)
 app.include_router(products_router)
+app.include_router(stock_router)
 
 
 @app.get("/ping")

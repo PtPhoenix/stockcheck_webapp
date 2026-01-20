@@ -408,3 +408,55 @@ status_history:
     metrics:
       stages_completed: 12
       chapters_completed: 1
+  - status_id: "status-0014"
+    timestamp_tashkent: "2026-01-20T15:47:37+05:00"
+    current_position:
+      chapter_id: "CHAPTER 5"
+      stage_id: "STAGE 5.2"
+      stage_title: "Low Stock Count API"
+    done:
+      summary:
+        - "Implemented stock overview API with balance and low-stock flag."
+      details:
+        - "Added GET /stock/overview with search, filters, sorting, and low-stock-first ordering."
+        - "Overview response includes product fields, computed balance, and low_stock flag."
+    next_actions_current_stage:
+      - "Implement GET /stock/low/count endpoint."
+      - "Return total number of low-stock products."
+    dod_evidence:
+      - "backend/app/api/stock.py created with /stock/overview."
+      - "backend/app/schemas/stock.py created."
+      - "backend/app/schemas/__init__.py updated with stock schemas."
+      - "backend/app/main.py updated to include stock router."
+    decisions:
+      - "Low-stock flag respects low_stock_enabled and min_stock."
+    open_questions:
+      - "Choose frontend framework: React or Vue."
+      - "Choose API client: fetch or axios."
+    metrics:
+      stages_completed: 13
+      chapters_completed: 1
+  - status_id: "status-0015"
+    timestamp_tashkent: "2026-01-20T15:48:38+05:00"
+    current_position:
+      chapter_id: "CHAPTER 6"
+      stage_id: "STAGE 6.1"
+      stage_title: "Settings Model & API"
+    done:
+      summary:
+        - "Implemented low stock count API."
+      details:
+        - "Added GET /stock/low/count to return total number of low-stock products."
+    next_actions_current_stage:
+      - "Create settings storage (single owner scope)."
+      - "Implement GET /settings and PUT /settings for low-stock behavior."
+    dod_evidence:
+      - "backend/app/api/stock.py updated with /stock/low/count."
+    decisions:
+      - "Low-stock count considers only active products."
+    open_questions:
+      - "Choose frontend framework: React or Vue."
+      - "Choose API client: fetch or axios."
+    metrics:
+      stages_completed: 14
+      chapters_completed: 1
