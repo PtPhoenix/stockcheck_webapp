@@ -581,3 +581,31 @@ status_history:
     metrics:
       stages_completed: 17
       chapters_completed: 1
+  - status_id: "status-0020"
+    timestamp_tashkent: "2026-01-20T16:30:43+05:00"
+    current_position:
+      chapter_id: "CHAPTER 7"
+      stage_id: "STAGE 7.4"
+      stage_title: "Product Management UI"
+    done:
+      summary:
+        - "Built the inventory table UI with filters and sorting."
+        - "Highlighted low-stock products and added IN/OUT action buttons."
+      details:
+        - "Inventory page now fetches stock overview data with search, low-stock filter, and sort controls."
+        - "Low-stock rows are visually highlighted with a badge."
+        - "Action buttons render per product row with a placeholder notice."
+    next_actions_current_stage:
+      - "Add product create/edit modal or page."
+      - "Validate product fields (name, min_stock)."
+      - "Add delete/deactivate action."
+    dod_evidence:
+      - "frontend/src/pages/Inventory.jsx updated with inventory table UI, filters, and actions."
+      - "frontend/src/lib/api.js updated with stock overview API helper."
+      - "frontend/src/index.css updated with inventory layout and table styles."
+    decisions:
+      - "Frontend API client uses fetch."
+    open_questions: []
+    metrics:
+      stages_completed: 18
+      chapters_completed: 1

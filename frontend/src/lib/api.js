@@ -44,3 +44,26 @@ export async function login(credentials) {
 export async function logout() {
   return request('/auth/logout', { method: 'POST' })
 }
+
+export async function getStockOverview({
+  search,
+  lowStockOnly = false,
+  sortBy = 'name',
+  sortDir = 'asc',
+  skip = 0,
+  limit = 50,
+} = {}) {
+  const params = new URLSearchParams()
+  if (search) {
+    params.set('search', search)
+  }
+  if (lowStockOnly) {
+    params.set('low_stock_only', 'true')
+  }
+  params.set('sort_by', sortBy)
+  params.set('sort_dir', sortDir)
+  params.set('skip', String(skip))
+  params.set('limit', String(limit))
+  const query = params.toString()
+  return request(`/stock/overview?${query}`, { method: 'GET' })
+}
