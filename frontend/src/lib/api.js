@@ -126,3 +126,14 @@ export async function createMovement(payload) {
     body: JSON.stringify(payload),
   })
 }
+
+export async function getSettings() {
+  return request('/settings', { method: 'GET' })
+}
+
+export async function updateSettings(payload) {
+  return request('/settings', {
+    method: 'PUT',
+    body: JSON.stringify(payload),
+  })
+}

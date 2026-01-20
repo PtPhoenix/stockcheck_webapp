@@ -84,7 +84,7 @@ function Movements() {
 
   const productLookup = useMemo(() => {
     return products.reduce((acc, product) => {
-      acc[product.id] = product.name
+      acc[product.id] = product
       return acc
     }, {})
   }, [products])
@@ -101,6 +101,9 @@ function Movements() {
         <div className="actions">
           <Link className="ghost link-button" to="/inventory">
             Inventory
+          </Link>
+          <Link className="ghost link-button" to="/settings">
+            Settings
           </Link>
           <ThemeToggle />
           <button type="button" className="ghost" onClick={logout}>
@@ -146,10 +149,19 @@ function Movements() {
 
         <div className="table-wrap">
           <table className="inventory-table">
+            <colgroup>
+              <col style={{ width: '22%' }} />
+              <col style={{ width: '22%' }} />
+              <col style={{ width: '10%' }} />
+              <col style={{ width: '10%' }} />
+              <col style={{ width: '10%' }} />
+              <col style={{ width: '26%' }} />
+            </colgroup>
             <thead>
               <tr>
                 <th>Date</th>
                 <th>Product</th>
+                <th>Unit</th>
                 <th>Type</th>
                 <th>Quantity</th>
                 <th>Note</th>
@@ -166,7 +178,8 @@ function Movements() {
                 items.map((item) => (
                   <tr key={item.id}>
                     <td>{new Date(item.created_at).toLocaleString()}</td>
-                    <td>{productLookup[item.product_id] || `#${item.product_id}`}</td>
+                    <td>{productLookup[item.product_id]?.name || `#${item.product_id}`}</td>
+                    <td>{productLookup[item.product_id]?.unit || '-'}</td>
                     <td>
                       <span className={`tag ${item.movement_type === 'OUT' ? 'danger' : ''}`}>
                         {item.movement_type}

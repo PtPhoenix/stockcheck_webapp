@@ -294,6 +294,7 @@ button.danger {
   width: 100%;
   border-collapse: collapse;
   min-width: 680px;
+  table-layout: fixed;
 }
 
 .inventory-table th {
@@ -309,6 +310,15 @@ button.danger {
 .inventory-table td {
   padding: 14px 16px;
   border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.inventory-table td:first-child,
+.inventory-table th:first-child {
+  white-space: normal;
 }
 
 .inventory-table tbody tr:hover {

@@ -763,3 +763,102 @@ status_history:
     metrics:
       stages_completed: 20
       chapters_completed: 1
+  - status_id: "status-0027"
+    timestamp_tashkent: "2026-01-20T17:21:17+05:00"
+    current_position:
+      chapter_id: "CHAPTER 6"
+      stage_id: "STAGE 6.2"
+      stage_title: "Frontend Popup Logic"
+    done:
+      summary:
+        - "Added settings page for low-stock behavior."
+      details:
+        - "Settings page loads and updates low-stock popup, pin-to-top, and cooldown hours."
+        - "Navigation links updated to include Settings."
+    next_actions_current_stage:
+      - "Show a single popup if low-stock count > 0."
+      - "Respect cooldown to avoid repeated notifications."
+      - "Provide popup actions: Show low-stock and Close."
+    dod_evidence:
+      - "frontend/src/pages/Settings.jsx created."
+      - "frontend/src/lib/api.js updated with settings helpers."
+      - "frontend/src/App.jsx updated with /settings route."
+      - "frontend/src/pages/Inventory.jsx updated with Settings link."
+      - "frontend/src/pages/Movements.jsx updated with Settings link."
+    decisions:
+      - "Settings UI implemented as a dedicated page."
+    open_questions: []
+    metrics:
+      stages_completed: 21
+      chapters_completed: 1
+  - status_id: "status-0028"
+    timestamp_tashkent: "2026-01-20T17:23:23+05:00"
+    current_position:
+      chapter_id: "CHAPTER 6"
+      stage_id: "STAGE 6.2"
+      stage_title: "Frontend Popup Logic"
+    done:
+      summary:
+        - "Reordered unit column to be third in inventory-related tables."
+      details:
+        - "Stock overview and product management tables now show Unit as the third column."
+        - "Movements table now includes Unit as the third column."
+    next_actions_current_stage:
+      - "Show a single popup if low-stock count > 0."
+      - "Respect cooldown to avoid repeated notifications."
+      - "Provide popup actions: Show low-stock and Close."
+    dod_evidence:
+      - "frontend/src/pages/Inventory.jsx updated with column order changes."
+      - "frontend/src/pages/Movements.jsx updated with unit column."
+    decisions: []
+    open_questions: []
+    metrics:
+      stages_completed: 21
+      chapters_completed: 1
+  - status_id: "status-0029"
+    timestamp_tashkent: "2026-01-20T17:25:47+05:00"
+    current_position:
+      chapter_id: "CHAPTER 6"
+      stage_id: "STAGE 6.2"
+      stage_title: "Frontend Popup Logic"
+    done:
+      summary:
+        - "Standardized table column spacing with fixed layouts."
+      details:
+        - "Added colgroup widths for inventory, product management, and movements tables."
+        - "Applied fixed table layout with ellipsis for long content."
+    next_actions_current_stage:
+      - "Show a single popup if low-stock count > 0."
+      - "Respect cooldown to avoid repeated notifications."
+      - "Provide popup actions: Show low-stock and Close."
+    dod_evidence:
+      - "frontend/src/pages/Inventory.jsx updated with colgroup widths."
+      - "frontend/src/pages/Movements.jsx updated with colgroup widths."
+      - "frontend/src/index.css updated with fixed table layout."
+    decisions: []
+    open_questions: []
+    metrics:
+      stages_completed: 21
+      chapters_completed: 1
+  - status_id: "status-0030"
+    timestamp_tashkent: "2026-01-20T17:27:44+05:00"
+    current_position:
+      chapter_id: "CHAPTER 6"
+      stage_id: "STAGE 6.2"
+      stage_title: "Frontend Popup Logic"
+    done:
+      summary:
+        - "Allowed full product names to wrap in table columns."
+      details:
+        - "First column in inventory tables now wraps instead of truncating."
+    next_actions_current_stage:
+      - "Show a single popup if low-stock count > 0."
+      - "Respect cooldown to avoid repeated notifications."
+      - "Provide popup actions: Show low-stock and Close."
+    dod_evidence:
+      - "frontend/src/index.css updated to allow wrapping in the first column."
+    decisions: []
+    open_questions: []
+    metrics:
+      stages_completed: 21
+      chapters_completed: 1

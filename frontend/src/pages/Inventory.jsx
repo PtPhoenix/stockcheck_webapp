@@ -318,6 +318,9 @@ function Inventory() {
           <Link className="ghost link-button" to="/movements">
             Movements
           </Link>
+          <Link className="ghost link-button" to="/settings">
+            Settings
+          </Link>
           <ThemeToggle />
           <button type="button" className="ghost" onClick={logout}>
             Sign out
@@ -372,11 +375,18 @@ function Inventory() {
 
         <div className="table-wrap">
           <table className="inventory-table">
+            <colgroup>
+              <col style={{ width: '36%' }} />
+              <col style={{ width: '14%' }} />
+              <col style={{ width: '12%' }} />
+              <col style={{ width: '14%' }} />
+              <col style={{ width: '24%' }} />
+            </colgroup>
             <thead>
               <tr>
                 <th>Product</th>
-                <th>Unit</th>
                 <th>Balance</th>
+                <th>Unit</th>
                 <th>Min stock</th>
                 <th>Actions</th>
               </tr>
@@ -397,8 +407,8 @@ function Inventory() {
                         {item.low_stock ? <span className="tag danger">Low stock</span> : null}
                       </div>
                     </td>
-                    <td>{item.unit}</td>
                     <td>{item.balance}</td>
+                    <td>{item.unit}</td>
                     <td>{item.min_stock}</td>
                     <td>
                       <div className="inventory-actions">
@@ -482,11 +492,19 @@ function Inventory() {
 
         <div className="table-wrap">
           <table className="inventory-table">
+            <colgroup>
+              <col style={{ width: '28%' }} />
+              <col style={{ width: '12%' }} />
+              <col style={{ width: '10%' }} />
+              <col style={{ width: '18%' }} />
+              <col style={{ width: '12%' }} />
+              <col style={{ width: '20%' }} />
+            </colgroup>
             <thead>
               <tr>
                 <th>Product</th>
-                <th>Unit</th>
                 <th>Min stock</th>
+                <th>Unit</th>
                 <th>Low-stock alert</th>
                 <th>Status</th>
                 <th>Actions</th>
@@ -503,8 +521,8 @@ function Inventory() {
                 filteredProducts.map((product) => (
                   <tr key={product.id} className={!product.is_active ? 'inactive' : ''}>
                     <td>{product.name}</td>
-                    <td>{product.unit}</td>
                     <td>{product.min_stock}</td>
+                    <td>{product.unit}</td>
                     <td>{product.low_stock_enabled ? 'Enabled' : 'Disabled'}</td>
                     <td>
                       {product.is_active ? (
