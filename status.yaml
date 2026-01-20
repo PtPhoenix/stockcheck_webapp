@@ -460,3 +460,124 @@ status_history:
     metrics:
       stages_completed: 14
       chapters_completed: 1
+  - status_id: "status-0016"
+    timestamp_tashkent: "2026-01-20T15:50:31+05:00"
+    current_position:
+      chapter_id: "CHAPTER 6"
+      stage_id: "STAGE 6.2"
+      stage_title: "Frontend Popup Logic"
+    done:
+      summary:
+        - "Implemented settings storage and API."
+      details:
+        - "Added Settings model with low-stock popup, pin-to-top, and cooldown hours."
+        - "Implemented GET /settings and PUT /settings endpoints."
+    next_actions_current_stage:
+      - "Show a single popup if low-stock count > 0."
+      - "Respect cooldown to avoid repeated notifications."
+      - "Provide popup actions: Show low-stock and Close."
+    dod_evidence:
+      - "backend/app/models/settings.py created."
+      - "backend/app/api/settings.py created."
+      - "backend/app/schemas/settings.py created."
+      - "backend/app/schemas/__init__.py updated with settings schemas."
+      - "backend/app/models/__init__.py updated with Settings."
+      - "backend/app/main.py updated to include settings router."
+    decisions:
+      - "Settings stored as a single-row table, created on demand."
+    open_questions:
+      - "Choose frontend framework: React or Vue."
+      - "Choose API client: fetch or axios."
+    metrics:
+      stages_completed: 15
+      chapters_completed: 1
+  - status_id: "status-0017"
+    timestamp_tashkent: "2026-01-20T15:56:55+05:00"
+    current_position:
+      chapter_id: "CHAPTER 7"
+      stage_id: "STAGE 7.1"
+      stage_title: "Frontend Skeleton"
+    done:
+      summary:
+        - "Reordered roadmap to place frontend work before popup logic."
+      details:
+        - "Moved STAGE 6.2 and 6.3 after frontend stages due to dependency on UI."
+    next_actions_current_stage:
+      - "Initialize React frontend project."
+      - "Configure API client with credentials support."
+      - "Setup routing and protected routes."
+    dod_evidence:
+      - "docs/roadmap.md updated with new stage ordering."
+    decisions:
+      - "Frontend skeleton is required before implementing popup logic."
+    open_questions:
+      - "Choose API client: fetch or axios."
+    metrics:
+      stages_completed: 15
+      chapters_completed: 1
+  - status_id: "status-0018"
+    timestamp_tashkent: "2026-01-20T16:01:51+05:00"
+    current_position:
+      chapter_id: "CHAPTER 7"
+      stage_id: "STAGE 7.2"
+      stage_title: "Login Page"
+    done:
+      summary:
+        - "Initialized React frontend skeleton with routing and protected routes."
+      details:
+        - "Added API client with credentials support and auth context."
+        - "Configured routes for login and inventory with protected access."
+    next_actions_current_stage:
+      - "Build login form UI."
+      - "Connect to backend login endpoint."
+      - "Handle login errors and success redirect."
+    dod_evidence:
+      - "frontend/ initialized with Vite React template."
+      - "frontend/src/lib/api.js created with credentialed fetch helper."
+      - "frontend/src/state/auth.jsx created with session refresh and login/logout."
+      - "frontend/src/routes/ProtectedRoute.jsx created."
+      - "frontend/src/pages/Login.jsx and frontend/src/pages/Inventory.jsx created."
+      - "frontend/src/App.jsx and frontend/src/main.jsx updated for routing."
+      - "frontend/.env.example added with VITE_API_BASE_URL."
+    decisions:
+      - "React chosen for frontend implementation."
+    open_questions:
+      - "Choose API client: fetch or axios."
+    metrics:
+      stages_completed: 16
+      chapters_completed: 1
+  - status_id: "status-0019"
+    timestamp_tashkent: "2026-01-20T16:23:05+05:00"
+    current_position:
+      chapter_id: "CHAPTER 7"
+      stage_id: "STAGE 7.3"
+      stage_title: "Inventory Page (Main Screen)"
+    done:
+      summary:
+        - "Implemented login page and session flow."
+      details:
+        - "Login form posts to /auth/login and redirects on success."
+        - "Auth context refreshes session via /auth/me."
+        - "Added theme toggle with light/dark modes."
+    next_actions_current_stage:
+      - "Build inventory table UI."
+      - "Add search input."
+      - "Add low-stock filter toggle."
+      - "Add sorting controls."
+      - "Highlight low-stock rows."
+      - "Add “IN / OUT” actions per product."
+    dod_evidence:
+      - "frontend/src/pages/Login.jsx created with form and login handler."
+      - "frontend/src/state/auth.jsx created with login/logout and session refresh."
+      - "frontend/src/lib/api.js created for backend auth requests."
+      - "frontend/src/routes/ProtectedRoute.jsx created for auth gating."
+      - "frontend/src/state/theme.jsx created with light/dark theme toggle."
+      - "frontend/src/components/ThemeToggle.jsx created."
+      - "frontend/src/index.css updated with theme variables and dark palette."
+    decisions:
+      - "Theme preference stored in localStorage and applied via body data-theme."
+    open_questions:
+      - "Choose API client: fetch or axios."
+    metrics:
+      stages_completed: 17
+      chapters_completed: 1

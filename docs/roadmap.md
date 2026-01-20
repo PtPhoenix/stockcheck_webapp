@@ -112,34 +112,6 @@
 
 ---
 
-## CHAPTER 6 — Low Stock Alert Experience (No Spam)
-
-### STAGE 6.1 — Settings Model & API
-
-* Create settings storage (single owner scope)
-* Implement GET /settings
-* Implement PUT /settings to update:
-
-  * low-stock popup enabled/disabled
-  * low-stock pin-to-top enabled/disabled
-  * popup cooldown hours
-
-### STAGE 6.2 — Frontend Popup Logic
-
-* Show a single popup if low-stock count > 0
-* Respect cooldown to avoid repeated notifications
-* Provide actions:
-
-  * “Show low-stock” (enable low-only filter)
-  * “Close”
-
-### STAGE 6.3 — Low-Stock Pin-to-Top Behavior
-
-* If enabled, apply low-first sorting on the inventory page
-* If disabled, use normal sorting only
-
----
-
 ## CHAPTER 7 — Frontend Application (React/Vue)
 
 ### STAGE 7.1 — Frontend Skeleton
@@ -179,6 +151,36 @@
 
 * Add settings panel/page for low-stock behavior toggles
 * Save settings to backend
+
+---
+
+## CHAPTER 6 — Low Stock Alert Experience (No Spam)
+
+Note: Stages 6.2 and 6.3 depend on the frontend skeleton and inventory UI.
+
+### STAGE 6.1 — Settings Model & API
+
+* Create settings storage (single owner scope)
+* Implement GET /settings
+* Implement PUT /settings to update:
+
+  * low-stock popup enabled/disabled
+  * low-stock pin-to-top enabled/disabled
+  * popup cooldown hours
+
+### STAGE 6.2 — Frontend Popup Logic
+
+* Show a single popup if low-stock count > 0
+* Respect cooldown to avoid repeated notifications
+* Provide actions:
+
+  * “Show low-stock” (enable low-only filter)
+  * “Close”
+
+### STAGE 6.3 — Low-Stock Pin-to-Top Behavior
+
+* If enabled, apply low-first sorting on the inventory page
+* If disabled, use normal sorting only
 
 ---
 

@@ -1,6 +1,7 @@
 from app.schemas.auth import LoginRequest, TokenResponse, UserMe
 from app.schemas.movement import MovementCreate, MovementList, MovementOut
 from app.schemas.product import ProductCreate, ProductList, ProductOut, ProductUpdate
+from app.schemas.settings import SettingsOut, SettingsUpdate
 from app.schemas.stock import StockOverviewItem, StockOverviewList
 
 __all__ = [
@@ -14,6 +15,8 @@ __all__ = [
     "ProductList",
     "ProductOut",
     "ProductUpdate",
+    "SettingsOut",
+    "SettingsUpdate",
     "StockOverviewItem",
     "StockOverviewList",
 ]
