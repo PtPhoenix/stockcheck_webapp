@@ -108,3 +108,39 @@ status_history:
     metrics:
       stages_completed: 2
       chapters_completed: 0
+  - status_id: "status-0004"
+    timestamp_tashkent: "2026-01-20T15:06:00+05:00"
+    current_position:
+      chapter_id: "CHAPTER 2"
+      stage_id: "STAGE 2.1"
+      stage_title: "User Model"
+    done:
+      summary:
+        - "Configured SQLAlchemy engine/session and declarative base."
+        - "Initialized Alembic configuration and environment."
+        - "Added backend requirements list."
+      details:
+        - "Created backend/app/db/base.py and backend/app/db/session.py with engine, SessionLocal, and SQLite connect args."
+        - "Added backend/alembic.ini, backend/alembic/env.py, backend/alembic/script.py.mako, and backend/alembic/versions/.gitkeep."
+        - "Added backend/requirements.txt with core backend dependencies."
+    next_actions_current_stage:
+      - "Implement User database model."
+      - "Add password hashing utilities."
+      - "Create admin/owner seed user logic."
+    dod_evidence:
+      - "backend/app/db/base.py created with declarative Base."
+      - "backend/app/db/session.py created with engine and SessionLocal."
+      - "backend/alembic.ini created."
+      - "backend/alembic/env.py created."
+      - "backend/alembic/script.py.mako created."
+      - "backend/alembic/versions/.gitkeep created."
+      - "backend/requirements.txt created."
+    decisions:
+      - "SQLAlchemy engine uses sqlite check_same_thread=False when database URL starts with sqlite."
+      - "Alembic environment loads database URL from application settings."
+    open_questions:
+      - "Choose frontend framework: React or Vue."
+      - "Choose API client: fetch or axios."
+    metrics:
+      stages_completed: 3
+      chapters_completed: 1
