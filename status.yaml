@@ -327,3 +327,84 @@ status_history:
     metrics:
       stages_completed: 9
       chapters_completed: 1
+  - status_id: "status-0011"
+    timestamp_tashkent: "2026-01-20T15:43:14+05:00"
+    current_position:
+      chapter_id: "CHAPTER 4"
+      stage_id: "STAGE 4.2"
+      stage_title: "Movement API"
+    done:
+      summary:
+        - "Implemented StockMovement model."
+      details:
+        - "Added stock_movements table with product_id, movement_type, quantity, note, created_by, and created_at."
+    next_actions_current_stage:
+      - "Implement POST /movements to create incoming/outgoing movements."
+      - "Implement GET /movements list endpoint with basic filters."
+    dod_evidence:
+      - "backend/app/models/stock_movement.py created."
+      - "backend/app/models/__init__.py updated to export StockMovement."
+    decisions:
+      - "Stock movements reference products and users via foreign keys."
+    open_questions:
+      - "Choose frontend framework: React or Vue."
+      - "Choose API client: fetch or axios."
+    metrics:
+      stages_completed: 10
+      chapters_completed: 1
+  - status_id: "status-0012"
+    timestamp_tashkent: "2026-01-20T15:44:26+05:00"
+    current_position:
+      chapter_id: "CHAPTER 4"
+      stage_id: "STAGE 4.3"
+      stage_title: "Balance Calculation Service"
+    done:
+      summary:
+        - "Implemented stock movement API with basic filters."
+      details:
+        - "Added POST /movements to create IN/OUT movements."
+        - "Added GET /movements with optional product_id and movement_type filters and pagination."
+        - "Added movement schemas for create/list responses."
+    next_actions_current_stage:
+      - "Implement balance calculation logic: total(IN) − total(OUT)."
+      - "Provide a backend function to compute balance per product."
+      - "Ensure products with no movements return balance = 0."
+    dod_evidence:
+      - "backend/app/api/movements.py created."
+      - "backend/app/schemas/movement.py created."
+      - "backend/app/schemas/__init__.py updated with movement schemas."
+      - "backend/app/main.py updated to include movements router."
+    decisions:
+      - "Movement list supports basic filters and pagination."
+    open_questions:
+      - "Choose frontend framework: React or Vue."
+      - "Choose API client: fetch or axios."
+    metrics:
+      stages_completed: 11
+      chapters_completed: 1
+  - status_id: "status-0013"
+    timestamp_tashkent: "2026-01-20T15:45:15+05:00"
+    current_position:
+      chapter_id: "CHAPTER 5"
+      stage_id: "STAGE 5.1"
+      stage_title: "Stock Overview API"
+    done:
+      summary:
+        - "Implemented balance calculation service."
+      details:
+        - "Added helper to compute per-product balance as total(IN) minus total(OUT)."
+        - "Returns zero balance for products with no movements."
+    next_actions_current_stage:
+      - "Implement GET /stock/overview endpoint returning product fields + balance + low-stock flag."
+      - "Support search, low-stock filter, active filter, sorting, and low-stock-first ordering."
+    dod_evidence:
+      - "backend/app/services/balance.py created with get_product_balance."
+      - "backend/app/services/__init__.py created."
+    decisions:
+      - "Balance is computed via SQL aggregation with IN/OUT case sums."
+    open_questions:
+      - "Choose frontend framework: React or Vue."
+      - "Choose API client: fetch or axios."
+    metrics:
+      stages_completed: 12
+      chapters_completed: 1
