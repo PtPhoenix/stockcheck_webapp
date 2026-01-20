@@ -1,7 +1,12 @@
 from datetime import datetime
 from typing import List, Optional
 
-from pydantic import BaseModel
+try:
+    from pydantic import BaseModel, ConfigDict
+except ImportError:  # pragma: no cover - fallback for Pydantic v1
+    from pydantic import BaseModel
+
+    ConfigDict = None
 
 
 class ProductBase(BaseModel):
@@ -13,7 +18,7 @@ class ProductBase(BaseModel):
 
 
 class ProductCreate(ProductBase):
-    pass
+    initial_stock: int = 0
 
 
 class ProductUpdate(BaseModel):
@@ -27,9 +32,11 @@ class ProductUpdate(BaseModel):
 class ProductOut(ProductBase):
     id: int
     created_at: datetime
-
-    class Config:
-        orm_mode = True
+    if ConfigDict:
+        model_config = ConfigDict(from_attributes=True)
+    else:
+        class Config:
+            orm_mode = True
 
 
 class ProductList(BaseModel):

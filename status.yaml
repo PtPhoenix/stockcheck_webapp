@@ -609,3 +609,157 @@ status_history:
     metrics:
       stages_completed: 18
       chapters_completed: 1
+  - status_id: "status-0021"
+    timestamp_tashkent: "2026-01-20T16:42:44+05:00"
+    current_position:
+      chapter_id: "CHAPTER 7"
+      stage_id: "STAGE 7.5"
+      stage_title: "Movement UI"
+    done:
+      summary:
+        - "Added product management UI with create/edit modal and deactivate action."
+        - "Implemented frontend product API helpers."
+      details:
+        - "Inventory page now includes product list, search, and edit/deactivate controls."
+        - "Modal form validates name, unit, and min stock before saving."
+        - "Product changes refresh both product list and stock overview."
+    next_actions_current_stage:
+      - "Add movement create modal (IN/OUT)."
+      - "Add movements history page/table."
+      - "Add movement filters (optional)."
+    dod_evidence:
+      - "frontend/src/pages/Inventory.jsx updated with product management UI and modal."
+      - "frontend/src/lib/api.js updated with product CRUD helpers."
+      - "frontend/src/index.css updated with product panel and modal styles."
+    decisions:
+      - "Product management lives on the inventory screen with a modal editor."
+    open_questions: []
+    metrics:
+      stages_completed: 19
+      chapters_completed: 1
+  - status_id: "status-0022"
+    timestamp_tashkent: "2026-01-20T16:53:23+05:00"
+    current_position:
+      chapter_id: "CHAPTER 7"
+      stage_id: "STAGE 7.6"
+      stage_title: "Settings UI"
+    done:
+      summary:
+        - "Added movement creation modal for IN/OUT actions."
+        - "Built movement history page with basic filters."
+      details:
+        - "Inventory screen opens movement modal from row actions or a new movement button."
+        - "Movements page lists history with product/type filters and uses product lookup."
+        - "Movement API helpers added for list/create."
+    next_actions_current_stage:
+      - "Add settings panel/page for low-stock behavior toggles."
+      - "Save settings to backend."
+    dod_evidence:
+      - "frontend/src/components/MovementModal.jsx created."
+      - "frontend/src/pages/Movements.jsx created."
+      - "frontend/src/pages/Inventory.jsx updated with movement modal integration."
+      - "frontend/src/lib/api.js updated with movement helpers."
+      - "frontend/src/App.jsx updated with /movements route."
+      - "frontend/src/index.css updated with link button styles."
+    decisions:
+      - "Movement history is presented on a dedicated page with basic filters."
+    open_questions: []
+    metrics:
+      stages_completed: 20
+      chapters_completed: 1
+  - status_id: "status-0023"
+    timestamp_tashkent: "2026-01-20T16:57:34+05:00"
+    current_position:
+      chapter_id: "CHAPTER 7"
+      stage_id: "STAGE 7.6"
+      stage_title: "Settings UI"
+    done:
+      summary:
+        - "Fixed Pydantic ORM serialization for SQLAlchemy models."
+      details:
+        - "Updated schema config to support Pydantic v2 from_attributes with fallback for v1."
+    next_actions_current_stage:
+      - "Add settings panel/page for low-stock behavior toggles."
+      - "Save settings to backend."
+    dod_evidence:
+      - "backend/app/schemas/product.py updated with from_attributes fallback."
+      - "backend/app/schemas/movement.py updated with from_attributes fallback."
+      - "backend/app/schemas/settings.py updated with from_attributes fallback."
+    decisions:
+      - "Schema models now support Pydantic v2+ while retaining v1 compatibility."
+    open_questions: []
+    metrics:
+      stages_completed: 20
+      chapters_completed: 1
+  - status_id: "status-0024"
+    timestamp_tashkent: "2026-01-20T17:06:12+05:00"
+    current_position:
+      chapter_id: "CHAPTER 7"
+      stage_id: "STAGE 7.6"
+      stage_title: "Settings UI"
+    done:
+      summary:
+        - "Added hard delete for products alongside deactivate."
+        - "Added initial stock field on product creation."
+      details:
+        - "Backend now accepts initial_stock and records an initial IN movement when provided."
+        - "Product UI now offers Delete and Initial stock on create."
+    next_actions_current_stage:
+      - "Add settings panel/page for low-stock behavior toggles."
+      - "Save settings to backend."
+    dod_evidence:
+      - "backend/app/api/products.py updated with hard delete and initial stock movement."
+      - "backend/app/schemas/product.py updated with initial_stock."
+      - "frontend/src/pages/Inventory.jsx updated with delete action and initial stock field."
+      - "frontend/src/lib/api.js updated with hard delete helper."
+    decisions:
+      - "Hard delete removes product and its movements."
+    open_questions: []
+    metrics:
+      stages_completed: 20
+      chapters_completed: 1
+  - status_id: "status-0025"
+    timestamp_tashkent: "2026-01-20T17:11:19+05:00"
+    current_position:
+      chapter_id: "CHAPTER 7"
+      stage_id: "STAGE 7.6"
+      stage_title: "Settings UI"
+    done:
+      summary:
+        - "Expanded inventory layout to full width."
+        - "Added activate action for inactive products."
+      details:
+        - "Inventory page now stretches panels to full width."
+        - "Product list shows Activate for inactive items and updates is_active."
+    next_actions_current_stage:
+      - "Add settings panel/page for low-stock behavior toggles."
+      - "Save settings to backend."
+    dod_evidence:
+      - "frontend/src/index.css updated with full-width inventory layout."
+      - "frontend/src/pages/Inventory.jsx updated with activate action."
+    decisions: []
+    open_questions: []
+    metrics:
+      stages_completed: 20
+      chapters_completed: 1
+  - status_id: "status-0026"
+    timestamp_tashkent: "2026-01-20T17:16:54+05:00"
+    current_position:
+      chapter_id: "CHAPTER 7"
+      stage_id: "STAGE 7.6"
+      stage_title: "Settings UI"
+    done:
+      summary:
+        - "Added client-side sorting and status filters for product management."
+      details:
+        - "Product list can be filtered by active/inactive and sorted by created date, name, or min stock."
+    next_actions_current_stage:
+      - "Add settings panel/page for low-stock behavior toggles."
+      - "Save settings to backend."
+    dod_evidence:
+      - "frontend/src/pages/Inventory.jsx updated with product filters and sorting controls."
+    decisions: []
+    open_questions: []
+    metrics:
+      stages_completed: 20
+      chapters_completed: 1

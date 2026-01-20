@@ -67,3 +67,62 @@ export async function getStockOverview({
   const query = params.toString()
   return request(`/stock/overview?${query}`, { method: 'GET' })
 }
+
+export async function listProducts({ search, skip = 0, limit = 50 } = {}) {
+  const params = new URLSearchParams()
+  if (search) {
+    params.set('search', search)
+  }
+  params.set('skip', String(skip))
+  params.set('limit', String(limit))
+  const query = params.toString()
+  return request(`/products?${query}`, { method: 'GET' })
+}
+
+export async function createProduct(payload) {
+  return request('/products', {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  })
+}
+
+export async function updateProduct(productId, payload) {
+  return request(`/products/${productId}`, {
+    method: 'PUT',
+    body: JSON.stringify(payload),
+  })
+}
+
+export async function deactivateProduct(productId) {
+  return request(`/products/${productId}`, { method: 'DELETE' })
+}
+
+export async function deleteProduct(productId) {
+  return request(`/products/${productId}/hard`, { method: 'DELETE' })
+}
+
+export async function listMovements({
+  productId,
+  movementType,
+  skip = 0,
+  limit = 50,
+} = {}) {
+  const params = new URLSearchParams()
+  if (productId) {
+    params.set('product_id', String(productId))
+  }
+  if (movementType) {
+    params.set('movement_type', movementType)
+  }
+  params.set('skip', String(skip))
+  params.set('limit', String(limit))
+  const query = params.toString()
+  return request(`/movements?${query}`, { method: 'GET' })
+}
+
+export async function createMovement(payload) {
+  return request('/movements', {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  })
+}

@@ -149,7 +149,7 @@ button:disabled {
   transform: none;
 }
 
-button.ghost {
+.ghost {
   background: transparent;
   color: var(--text);
 }
@@ -157,6 +157,23 @@ button.ghost {
 button.mini {
   padding: 6px 12px;
   font-size: 0.85rem;
+}
+
+.link-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--accent);
+  text-decoration: none;
+  font-size: 1rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.link-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(31, 24, 16, 0.2);
 }
 
 button.danger {
@@ -200,7 +217,19 @@ button.danger {
   padding-top: 32px;
 }
 
+.page.inventory-page .topbar,
+.page.inventory-page .panel {
+  width: 100%;
+  max-width: 100%;
+}
+
 .inventory-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.products-panel {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -294,6 +323,10 @@ button.danger {
   border-bottom-color: var(--danger-border);
 }
 
+.inventory-table tbody tr.inactive {
+  color: var(--muted);
+}
+
 .inventory-actions {
   display: flex;
   gap: 8px;
@@ -326,6 +359,42 @@ button.danger {
   text-align: center;
   color: var(--muted);
   padding: 28px 16px;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 12, 9, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 10;
+}
+
+.modal {
+  width: min(520px, 92vw);
+  background: var(--panel);
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
 }
 
 @media (max-width: 720px) {

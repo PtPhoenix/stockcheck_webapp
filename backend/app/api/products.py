@@ -2,8 +2,11 @@ from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.orm import Session
 
 from app.api.protected import router as protected_router
+from app.core.auth import get_current_user
 from app.db.deps import get_db
 from app.models.product import Product
+from app.models.stock_movement import StockMovement
+from app.models.user import User
 from app.schemas.product import ProductCreate, ProductList, ProductOut, ProductUpdate
 
 
@@ -15,7 +18,16 @@ router = APIRouter(
 
 
 @router.post("", response_model=ProductOut, status_code=status.HTTP_201_CREATED)
-def create_product(payload: ProductCreate, db: Session = Depends(get_db)) -> ProductOut:
+def create_product(
+    payload: ProductCreate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+) -> ProductOut:
+    if payload.initial_stock < 0:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Initial stock must be 0 or greater",
+        )
     product = Product(
         name=payload.name,
         unit=payload.unit,
@@ -24,6 +36,16 @@ def create_product(payload: ProductCreate, db: Session = Depends(get_db)) -> Pro
         is_active=payload.is_active,
     )
     db.add(product)
+    db.flush()
+    if payload.initial_stock and payload.initial_stock > 0:
+        movement = StockMovement(
+            product_id=product.id,
+            movement_type="IN",
+            quantity=payload.initial_stock,
+            note="Initial stock",
+            created_by=current_user.id,
+        )
+        db.add(movement)
     db.commit()
     db.refresh(product)
     return product
@@ -57,6 +79,20 @@ def deactivate_product(product_id: int, db: Session = Depends(get_db)) -> Produc
     product.is_active = False
     db.commit()
     db.refresh(product)
+    return product
+
+
+@router.delete("/{product_id}/hard", response_model=ProductOut)
+def delete_product(product_id: int, db: Session = Depends(get_db)) -> ProductOut:
+    product = db.query(Product).filter(Product.id == product_id).first()
+    if not product:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Product not found")
+
+    db.query(StockMovement).filter(StockMovement.product_id == product_id).delete(
+        synchronize_session=False
+    )
+    db.delete(product)
+    db.commit()
     return product
 
 
