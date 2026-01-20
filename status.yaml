@@ -980,3 +980,46 @@ status_history:
     metrics:
       stages_completed: 22
       chapters_completed: 1
+  - status_id: "status-0036"
+    timestamp_tashkent: "2026-01-20T17:56:09+05:00"
+    current_position:
+      chapter_id: "CHAPTER 6"
+      stage_id: "STAGE 6.3"
+      stage_title: "Low-Stock Pin-to-Top Behavior"
+    done:
+      summary:
+        - "User confirmed popup behavior and requested next stage."
+      details:
+        - "Proceeding to implement low-stock pin-to-top behavior."
+    next_actions_current_stage:
+      - "If enabled, apply low-first sorting on the inventory page."
+      - "If disabled, use normal sorting only."
+    dod_evidence:
+      - "User confirmation to proceed from STAGE 6.2."
+    decisions: []
+    open_questions: []
+    metrics:
+      stages_completed: 23
+      chapters_completed: 1
+  - status_id: "status-0037"
+    timestamp_tashkent: "2026-01-20T17:59:20+05:00"
+    current_position:
+      chapter_id: "CHAPTER 6"
+      stage_id: "STAGE 6.3"
+      stage_title: "Low-Stock Pin-to-Top Behavior"
+    done:
+      summary:
+        - "Hooked low-stock pin-to-top setting into stock overview requests."
+      details:
+        - "Inventory now requests low_stock_first when pin-to-top is enabled."
+    next_actions_current_stage:
+      - "If enabled, apply low-first sorting on the inventory page."
+      - "If disabled, use normal sorting only."
+    dod_evidence:
+      - "frontend/src/pages/Inventory.jsx updated to pass low_stock_first."
+      - "frontend/src/lib/api.js updated with low_stock_first parameter."
+    decisions: []
+    open_questions: []
+    metrics:
+      stages_completed: 23
+      chapters_completed: 1

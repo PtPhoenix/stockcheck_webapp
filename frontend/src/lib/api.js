@@ -50,6 +50,7 @@ export async function getStockOverview({
   lowStockOnly = false,
   sortBy = 'name',
   sortDir = 'asc',
+  lowStockFirst = false,
   skip = 0,
   limit = 50,
 } = {}) {
@@ -59,6 +60,9 @@ export async function getStockOverview({
   }
   if (lowStockOnly) {
     params.set('low_stock_only', 'true')
+  }
+  if (lowStockFirst) {
+    params.set('low_stock_first', 'true')
   }
   params.set('sort_by', sortBy)
   params.set('sort_dir', sortDir)

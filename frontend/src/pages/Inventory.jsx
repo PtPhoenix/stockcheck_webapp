@@ -77,6 +77,7 @@ function Inventory() {
         const data = await getStockOverview({
           search,
           lowStockOnly,
+          lowStockFirst: lowStockSettings.low_stock_pin_enabled,
           sortBy,
           sortDir,
           skip: 0,
@@ -104,7 +105,7 @@ function Inventory() {
     return () => {
       active = false
     }
-  }, [search, lowStockOnly, sortBy, sortDir, stockRefresh])
+  }, [search, lowStockOnly, sortBy, sortDir, stockRefresh, lowStockSettings.low_stock_pin_enabled])
 
   useEffect(() => {
     const timer = setTimeout(() => {
