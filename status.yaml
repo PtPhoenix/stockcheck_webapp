@@ -44,3 +44,35 @@ status_history:
     metrics:
       stages_completed: 0
       chapters_completed: 0
+  - status_id: "status-0002"
+    timestamp_tashkent: "2026-01-20T14:40:00+05:00"
+    current_position:
+      chapter_id: "CHAPTER 1"
+      stage_id: "STAGE 1.2"
+      stage_title: "Backend Skeleton (FastAPI)"
+    done:
+      summary:
+        - "Created monorepo structure with backend/ and frontend/ directories."
+        - "Added .gitignore, .env.example, and expanded README."
+      details:
+        - "Initialized repository layout in project root."
+        - "Defined environment variable template for app name, secret, DB, and frontend origin."
+        - "Documented features and stack in README."
+    next_actions_current_stage:
+      - "Create FastAPI app entry point."
+      - "Add health check endpoint (GET /ping)."
+      - "Configure settings module (app name, secret key, DB URL)."
+      - "Enable CORS for frontend origin."
+    dod_evidence:
+      - "backend/ and frontend/ directories present."
+      - ".gitignore and .env.example added in repo root."
+      - "README updated with project description and features."
+    decisions:
+      - "Monorepo structure chosen: backend/ + frontend/."
+      - "Environment template uses APP_NAME, SECRET_KEY, DATABASE_URL, FRONTEND_ORIGIN."
+    open_questions:
+      - "Choose frontend framework: React or Vue."
+      - "Choose API client: fetch or axios."
+    metrics:
+      stages_completed: 1
+      chapters_completed: 0
