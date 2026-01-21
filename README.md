@@ -2,6 +2,16 @@
 
 Inventory management web app for small stores and warehouses. It tracks products, incoming/outgoing stock, and highlights low inventory so you can restock in time.
 
+## Demo
+
+- Live demo: https://inventory-app-v1.onrender.com/
+- Docker image: https://docker.io/plzgivemepizza/inventory-app
+
+Default credentials:
+
+- Username: `admin`
+- Password: `simplepass`
+
 ## Features (MVP)
 
 - Login for a single owner/admin user
@@ -16,7 +26,7 @@ Inventory management web app for small stores and warehouses. It tracks products
 
 ## Tech Stack
 
-- Backend: Python, FastAPI, SQLAlchemy, Alembic, SQLite
+- Backend: Python, FastAPI, SQLAlchemy, Alembic (SQLite for dev, Postgres for production)
 - Frontend: React (Vite)
 - Auth: JWT in HttpOnly cookie
 
@@ -90,3 +100,47 @@ and point `VITE_API_BASE_URL` to your deployed backend URL.
 
 - Ensure `FRONTEND_ORIGIN` in `.env` matches the deployed frontend URL.
 - Configure HTTPS and cookie security for the `access_token` cookie in production.
+
+## Deploy Using Docker Image
+
+1. Pull the image:
+
+```bash
+docker pull plzgivemepizza/inventory-app:latest
+```
+
+2. Run the container (replace values as needed):
+
+```bash
+docker run --name inventory-app \
+  -p 8000:8000 \
+  -e DATABASE_URL="postgresql://user:pass@host:5432/dbname" \
+  -e SECRET_KEY="change-me" \
+  -e ADMIN_EMAIL="admin" \
+  -e ADMIN_PASSWORD="simplepass" \
+  -e FRONTEND_ORIGIN="http://your-domain.com" \
+  plzgivemepizza/inventory-app:latest
+```
+
+The app will be available at `http://your-domain.com` with the API under `/api`.
+
+## Deploy By Building The Image Yourself
+
+1. Build:
+
+```bash
+docker build -t inventory-app:latest .
+```
+
+2. Run:
+
+```bash
+docker run --name inventory-app \
+  -p 8000:8000 \
+  -e DATABASE_URL="postgresql://user:pass@host:5432/dbname" \
+  -e SECRET_KEY="change-me" \
+  -e ADMIN_EMAIL="admin" \
+  -e ADMIN_PASSWORD="simplepass" \
+  -e FRONTEND_ORIGIN="http://your-domain.com" \
+  inventory-app:latest
+```

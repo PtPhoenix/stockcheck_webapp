@@ -8,3 +8,4 @@ PyJWT
 pytest
 httpx
 psycopg
+psycopg2-binary

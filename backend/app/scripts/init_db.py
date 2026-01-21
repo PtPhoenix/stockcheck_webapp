@@ -1,7 +1,11 @@
 import subprocess
 
+from sqlalchemy import inspect
+
+import app.models  # noqa: F401
+from app.db.base import Base
 from app.db.seed import ensure_admin_user
-from app.db.session import SessionLocal
+from app.db.session import SessionLocal, engine
 
 
 def run_migrations() -> None:
@@ -16,8 +20,16 @@ def seed_admin() -> bool:
         db.close()
 
 
+def ensure_tables() -> None:
+    inspector = inspect(engine)
+    if inspector.has_table("users"):
+        return
+    Base.metadata.create_all(bind=engine)
+
+
 def main() -> None:
     run_migrations()
+    ensure_tables()
     seeded = seed_admin()
     if seeded:
         print("Admin user created.")

@@ -1,8 +1,8 @@
 from pathlib import Path
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 
 from app.api.auth import router as auth_router
 from app.api.export import router as export_router
@@ -31,9 +31,22 @@ app.include_router(settings_router, prefix="/api")
 app.include_router(stock_router, prefix="/api")
 
 static_dir = Path(__file__).resolve().parent / "static"
-app.mount("/", StaticFiles(directory=static_dir, html=True), name="static")
+index_file = static_dir / "index.html"
 
 
 @app.get("/api/ping")
 def ping() -> dict:
     return {"status": "ok"}
+
+
+@app.get("/{full_path:path}", include_in_schema=False)
+def spa_fallback(full_path: str):
+    if not index_file.exists():
+        raise HTTPException(status_code=404, detail="Frontend build not found")
+
+    if full_path:
+        candidate = static_dir / full_path
+        if candidate.is_file():
+            return FileResponse(candidate)
+
+    return FileResponse(index_file)
