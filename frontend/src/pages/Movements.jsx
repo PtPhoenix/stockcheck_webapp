@@ -188,9 +188,15 @@ function Movements() {
               </tr>
             </thead>
             <tbody>
-              {items.length === 0 && !loading ? (
+              {loading ? (
                 <tr>
-                  <td colSpan={5} className="empty">
+                  <td colSpan={6} className="empty">
+                    Loading movements...
+                  </td>
+                </tr>
+              ) : items.length === 0 ? (
+                <tr>
+                  <td colSpan={6} className="empty">
                     No movements found.
                   </td>
                 </tr>

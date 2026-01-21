@@ -1175,3 +1175,261 @@ status_history:
     metrics:
       stages_completed: 26
       chapters_completed: 1
+  - status_id: "status-0044"
+    timestamp_tashkent: "2026-01-21T13:15:15+05:00"
+    current_position:
+      chapter_id: "CHAPTER 9"
+      stage_id: "STAGE 9.1"
+      stage_title: "Backend Validation Rules"
+    done:
+      summary:
+        - "User confirmed completion of STAGE 8.2 (Export UI)."
+      details:
+        - "Proceeding to backend validation rules per roadmap."
+    next_actions_current_stage:
+      - "Enforce quantity > 0 for movements."
+      - "Enforce min_stock >= 0 for products."
+      - "Prevent invalid movement types."
+    dod_evidence:
+      - "User confirmation to proceed from STAGE 8.2."
+    decisions: []
+    open_questions: []
+    metrics:
+      stages_completed: 26
+      chapters_completed: 1
+  - status_id: "status-0045"
+    timestamp_tashkent: "2026-01-21T13:16:24+05:00"
+    current_position:
+      chapter_id: "CHAPTER 9"
+      stage_id: "STAGE 9.2"
+      stage_title: "Core Automated Tests"
+    done:
+      summary:
+        - "Added backend validation rules for movements and products."
+      details:
+        - "Movement schema enforces quantity > 0 and movement type IN/OUT."
+        - "Product schema enforces min_stock >= 0 and initial_stock >= 0."
+    next_actions_current_stage:
+      - "Test authentication flow (login + protected endpoints)."
+      - "Test balance calculation correctness."
+      - "Test low-stock detection logic."
+      - "Test stock overview search/filter behavior."
+    dod_evidence:
+      - "backend/app/schemas/movement.py updated with validators."
+      - "backend/app/schemas/product.py updated with validators."
+    decisions: []
+    open_questions: []
+    metrics:
+      stages_completed: 27
+      chapters_completed: 1
+  - status_id: "status-0046"
+    timestamp_tashkent: "2026-01-21T13:20:42+05:00"
+    current_position:
+      chapter_id: "CHAPTER 9"
+      stage_id: "STAGE 9.3"
+      stage_title: "UX Polishing"
+    done:
+      summary:
+        - "Added core automated tests for authentication, balance, low-stock, and search."
+      details:
+        - "Test coverage includes login flow, protected access, balance calculation, low-stock detection, and search behavior."
+        - "Test database uses SQLite in-memory with dependency override."
+    next_actions_current_stage:
+      - "Add loading states and error messages."
+      - "Confirm inventory updates after movements."
+      - "Ensure low-stock popup behavior is correct and non-spammy."
+    dod_evidence:
+      - "backend/tests/conftest.py created for test DB and auth client."
+      - "backend/tests/test_auth.py added for auth flow tests."
+      - "backend/tests/test_balance.py added for balance calculation test."
+      - "backend/tests/test_stock_overview.py added for low-stock and search tests."
+      - "backend/requirements.txt updated with pytest."
+    decisions:
+      - "Tests run against an in-memory SQLite database using FastAPI dependency overrides."
+    open_questions: []
+    metrics:
+      stages_completed: 28
+      chapters_completed: 1
+  - status_id: "status-0047"
+    timestamp_tashkent: "2026-01-21T13:24:46+05:00"
+    current_position:
+      chapter_id: "CHAPTER 9"
+      stage_id: "STAGE 9.3"
+      stage_title: "UX Polishing"
+    done:
+      summary:
+        - "Added missing test dependency for FastAPI test client."
+      details:
+        - "Added httpx to backend requirements to satisfy starlette.testclient."
+    next_actions_current_stage:
+      - "Add loading states and error messages."
+      - "Confirm inventory updates after movements."
+      - "Ensure low-stock popup behavior is correct and non-spammy."
+    dod_evidence:
+      - "backend/requirements.txt updated with httpx."
+    decisions: []
+    open_questions: []
+    metrics:
+      stages_completed: 28
+      chapters_completed: 1
+  - status_id: "status-0048"
+    timestamp_tashkent: "2026-01-21T13:25:54+05:00"
+    current_position:
+      chapter_id: "CHAPTER 9"
+      stage_id: "STAGE 9.3"
+      stage_title: "UX Polishing"
+    done:
+      summary:
+        - "Fixed test import path to run pytest from backend/."
+      details:
+        - "Added backend root to sys.path in conftest to resolve app imports."
+    next_actions_current_stage:
+      - "Add loading states and error messages."
+      - "Confirm inventory updates after movements."
+      - "Ensure low-stock popup behavior is correct and non-spammy."
+    dod_evidence:
+      - "backend/tests/conftest.py updated with sys.path setup."
+    decisions: []
+    open_questions: []
+    metrics:
+      stages_completed: 28
+      chapters_completed: 1
+  - status_id: "status-0049"
+    timestamp_tashkent: "2026-01-21T13:43:13+05:00"
+    current_position:
+      chapter_id: "CHAPTER 9"
+      stage_id: "STAGE 9.3"
+      stage_title: "UX Polishing"
+    done:
+      summary:
+        - "Adjusted backend tests to run without ASGI test client hangs."
+        - "All backend tests pass in the current environment."
+      details:
+        - "Tests now call API functions directly with DB sessions and fixtures."
+        - "Auth tests validate login response, cookie set, and get_current_user behavior."
+    next_actions_current_stage:
+      - "Add loading states and error messages."
+      - "Confirm inventory updates after movements."
+      - "Ensure low-stock popup behavior is correct and non-spammy."
+    dod_evidence:
+      - "backend/tests/conftest.py updated to use direct DB fixtures."
+      - "backend/tests/test_auth.py updated for direct auth dependency checks."
+      - "backend/tests/test_balance.py updated for direct balance checks."
+      - "backend/tests/test_stock_overview.py updated for direct stock overview checks."
+      - "Manual check: `cd backend && .venv/bin/pytest` => 5 passed in 0.61s."
+    decisions:
+      - "Use direct function calls in tests due to ASGI test client hang on Python 3.14."
+    open_questions: []
+    metrics:
+      stages_completed: 28
+      chapters_completed: 1
+  - status_id: "status-0050"
+    timestamp_tashkent: "2026-01-21T13:51:05+05:00"
+    current_position:
+      chapter_id: "CHAPTER 9"
+      stage_id: "STAGE 9.3"
+      stage_title: "UX Polishing"
+    done:
+      summary:
+        - "Added explicit loading states and guarded low-stock popup behavior."
+      details:
+        - "Inventory and product tables show loading rows while fetching."
+        - "Movements table shows loading row and correct empty-state colspan."
+        - "Low-stock popup now closes when alerts are disabled or count drops to zero."
+    next_actions_current_stage:
+      - "Request confirmation to proceed to STAGE 10.1 (Local Development Workflow)."
+    dod_evidence:
+      - "frontend/src/pages/Inventory.jsx updated with loading rows and popup guard."
+      - "frontend/src/pages/Movements.jsx updated with loading row and empty-state colspan."
+    decisions: []
+    open_questions: []
+    metrics:
+      stages_completed: 29
+      chapters_completed: 1
+  - status_id: "status-0051"
+    timestamp_tashkent: "2026-01-21T13:56:32+05:00"
+    current_position:
+      chapter_id: "CHAPTER 9"
+      stage_id: "STAGE 9.3"
+      stage_title: "UX Polishing"
+    done:
+      summary:
+        - "Adjusted low-stock popup to reappear on re-login without reload spam."
+      details:
+        - "Popup cooldown resets on explicit login events while remaining stable across reloads."
+    next_actions_current_stage:
+      - "Request confirmation to proceed to STAGE 10.1 (Local Development Workflow)."
+    dod_evidence:
+      - "frontend/src/state/auth.jsx updated with login nonce tracking."
+      - "frontend/src/pages/Inventory.jsx updated to reset popup cooldown on login."
+    decisions:
+      - "Popup cooldown reset is tied to explicit login events, not page reloads."
+    open_questions: []
+    metrics:
+      stages_completed: 29
+      chapters_completed: 1
+  - status_id: "status-0052"
+    timestamp_tashkent: "2026-01-21T13:57:56+05:00"
+    current_position:
+      chapter_id: "CHAPTER 10"
+      stage_id: "STAGE 10.1"
+      stage_title: "Local Development Workflow"
+    done:
+      summary:
+        - "User confirmed completion of STAGE 9.3 (UX Polishing)."
+      details:
+        - "Proceeding to document local development workflow."
+    next_actions_current_stage:
+      - "Document backend run commands."
+      - "Document frontend run commands."
+      - "Add environment setup steps."
+    dod_evidence:
+      - "User confirmation to proceed from STAGE 9.3."
+    decisions: []
+    open_questions: []
+    metrics:
+      stages_completed: 29
+      chapters_completed: 1
+  - status_id: "status-0053"
+    timestamp_tashkent: "2026-01-21T13:59:01+05:00"
+    current_position:
+      chapter_id: "CHAPTER 10"
+      stage_id: "STAGE 10.2"
+      stage_title: "Production Build Notes"
+    done:
+      summary:
+        - "Documented local development workflow for backend and frontend."
+      details:
+        - "Added backend virtualenv setup, environment config, and uvicorn run command."
+        - "Added frontend dependency install, env setup, and dev server command."
+    next_actions_current_stage:
+      - "Document frontend build output usage."
+      - "Confirm CORS/cookie settings for deployment."
+    dod_evidence:
+      - "README.md updated with Local Development Workflow section."
+    decisions: []
+    open_questions: []
+    metrics:
+      stages_completed: 30
+      chapters_completed: 1
+  - status_id: "status-0054"
+    timestamp_tashkent: "2026-01-21T14:04:23+05:00"
+    current_position:
+      chapter_id: "CHAPTER 10"
+      stage_id: "STAGE 10.2"
+      stage_title: "Production Build Notes"
+    done:
+      summary:
+        - "Documented frontend production build and deployment notes."
+      details:
+        - "Added build output location and backend URL configuration notes."
+        - "Documented CORS and cookie considerations for deployment."
+    next_actions_current_stage:
+      - "Request confirmation to finalize STAGE 10.2."
+    dod_evidence:
+      - "README.md updated with Production Build Notes section."
+    decisions: []
+    open_questions: []
+    metrics:
+      stages_completed: 31
+      chapters_completed: 2

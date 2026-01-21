@@ -7,6 +7,7 @@ const AuthContext = createContext(null)
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [loginNonce, setLoginNonce] = useState(null)
 
   const refreshSession = useCallback(async () => {
     try {
@@ -26,11 +27,13 @@ export function AuthProvider({ children }) {
   const login = useCallback(async (credentials) => {
     await loginRequest(credentials)
     await refreshSession()
+    setLoginNonce(Date.now())
   }, [refreshSession])
 
   const logout = useCallback(async () => {
     await logoutRequest()
     setUser(null)
+    setLoginNonce(null)
   }, [])
 
   const value = useMemo(
@@ -40,8 +43,9 @@ export function AuthProvider({ children }) {
       login,
       logout,
       refreshSession,
+      loginNonce,
     }),
-    [user, loading, login, logout, refreshSession],
+    [user, loading, login, logout, refreshSession, loginNonce],
   )
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

@@ -18,7 +18,7 @@ import {
 import { useAuth } from '../state/auth.jsx'
 
 function Inventory() {
-  const { user, logout } = useAuth()
+  const { user, logout, loginNonce } = useAuth()
   const [searchInput, setSearchInput] = useState('')
   const [search, setSearch] = useState('')
   const [lowStockOnly, setLowStockOnly] = useState(false)
@@ -63,6 +63,7 @@ function Inventory() {
     popup_cooldown_hours: 24,
   })
   const prevLowStockCountRef = useRef(0)
+  const prevLoginNonceRef = useRef(null)
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -161,7 +162,10 @@ function Inventory() {
     const storageUserKey = 'lowStockPopupUser'
     const storageKeyBase = `lowStockPopup:${user.email}`
     const previousUser = sessionStorage.getItem(storageUserKey)
-    if (previousUser !== user.email) {
+    const loginChanged = loginNonce && loginNonce !== prevLoginNonceRef.current
+    prevLoginNonceRef.current = loginNonce
+
+    if (previousUser !== user.email || loginChanged) {
       sessionStorage.setItem(storageUserKey, user.email)
       sessionStorage.removeItem(`${storageKeyBase}:lastSeen`)
       sessionStorage.removeItem(`${storageKeyBase}:count`)
@@ -170,7 +174,7 @@ function Inventory() {
     }
     const storedCount = Number(sessionStorage.getItem(`${storageKeyBase}:count`) || 0)
     prevLowStockCountRef.current = Number.isNaN(storedCount) ? 0 : storedCount
-  }, [user?.email])
+  }, [user?.email, loginNonce])
 
   useEffect(() => {
     let active = true
@@ -221,6 +225,15 @@ function Inventory() {
     }
     setLowStockPopupOpen(true)
   }, [lowStockCount, lowStockSettings, user?.email])
+
+  useEffect(() => {
+    if (!lowStockPopupOpen) {
+      return
+    }
+    if (!lowStockSettings.low_stock_popup_enabled || lowStockCount <= 0) {
+      setLowStockPopupOpen(false)
+    }
+  }, [lowStockCount, lowStockPopupOpen, lowStockSettings.low_stock_popup_enabled])
 
   const onMovementAction = (type, item) => {
     setMovementInitial({ productId: item.id, type })
@@ -520,7 +533,13 @@ function Inventory() {
               </tr>
             </thead>
             <tbody>
-              {items.length === 0 && !loading ? (
+              {loading ? (
+                <tr>
+                  <td colSpan={5} className="empty">
+                    Loading inventory...
+                  </td>
+                </tr>
+              ) : items.length === 0 ? (
                 <tr>
                   <td colSpan={5} className="empty">
                     No products match the current filters.
@@ -642,7 +661,13 @@ function Inventory() {
               </tr>
             </thead>
             <tbody>
-              {filteredProducts.length === 0 && !productsLoading ? (
+              {productsLoading ? (
+                <tr>
+                  <td colSpan={6} className="empty">
+                    Loading products...
+                  </td>
+                </tr>
+              ) : filteredProducts.length === 0 ? (
                 <tr>
                   <td colSpan={6} className="empty">
                     No products available yet.
