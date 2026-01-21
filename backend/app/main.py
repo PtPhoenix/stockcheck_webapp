@@ -1,5 +1,8 @@
+from pathlib import Path
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 from app.api.auth import router as auth_router
 from app.api.export import router as export_router
@@ -20,14 +23,17 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(auth_router)
-app.include_router(export_router)
-app.include_router(movements_router)
-app.include_router(products_router)
-app.include_router(settings_router)
-app.include_router(stock_router)
+app.include_router(auth_router, prefix="/api")
+app.include_router(export_router, prefix="/api")
+app.include_router(movements_router, prefix="/api")
+app.include_router(products_router, prefix="/api")
+app.include_router(settings_router, prefix="/api")
+app.include_router(stock_router, prefix="/api")
+
+static_dir = Path(__file__).resolve().parent / "static"
+app.mount("/", StaticFiles(directory=static_dir, html=True), name="static")
 
 
-@app.get("/ping")
+@app.get("/api/ping")
 def ping() -> dict:
     return {"status": "ok"}

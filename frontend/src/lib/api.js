@@ -1,7 +1,12 @@
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'
+const API_PREFIX = '/api'
+
+function buildApiUrl(path) {
+  return `${API_BASE_URL}${API_PREFIX}${path}`
+}
 
 async function request(path, options = {}) {
-  const response = await fetch(`${API_BASE_URL}${path}`, {
+  const response = await fetch(buildApiUrl(path), {
     credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
@@ -147,7 +152,7 @@ export async function getLowStockCount() {
 }
 
 async function downloadCsv(path, fallbackFilename) {
-  const response = await fetch(`${API_BASE_URL}${path}`, {
+  const response = await fetch(buildApiUrl(path), {
     credentials: 'include',
   })
 

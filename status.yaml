@@ -1642,3 +1642,144 @@ status_history:
     metrics:
       stages_completed: 31
       chapters_completed: 2
+  - status_id: "status-0065"
+    timestamp_tashkent: "2026-01-21T15:47:08+05:00"
+    current_position:
+      chapter_id: "CHAPTER 11"
+      stage_id: "STAGE 11.2"
+      stage_title: "Production Database (Postgres via DATABASE_URL)"
+    done:
+      summary:
+        - "Prepared FastAPI to serve React build and moved API under /api."
+      details:
+        - "Mounted static frontend at / with SPA fallback."
+        - "Moved backend routers and ping endpoint under /api."
+        - "Frontend API client now targets /api paths."
+    next_actions_current_stage:
+      - "Add Postgres driver dependency for SQLAlchemy."
+      - "Ensure DATABASE_URL is used for production."
+    dod_evidence:
+      - "backend/app/main.py updated with /api prefix and StaticFiles mount."
+      - "backend/app/static/.gitkeep added for static root."
+      - "frontend/src/lib/api.js updated to prefix /api."
+    decisions:
+      - "API surface is now under /api to support SPA routing at root."
+    open_questions: []
+    metrics:
+      stages_completed: 32
+      chapters_completed: 2
+  - status_id: "status-0066"
+    timestamp_tashkent: "2026-01-21T15:50:59+05:00"
+    current_position:
+      chapter_id: "CHAPTER 11"
+      stage_id: "STAGE 11.3"
+      stage_title: "Render Docker Deployment (Single Service)"
+    done:
+      summary:
+        - "Prepared production Postgres configuration via DATABASE_URL."
+      details:
+        - "Added psycopg driver dependency for SQLAlchemy."
+        - "Updated DATABASE_URL example to Postgres format."
+    next_actions_current_stage:
+      - "Create a multi-stage Dockerfile for frontend build + backend serve."
+      - "Configure Render Web Service to use the Dockerfile."
+      - "Ensure the service serves SPA and /api routes."
+    dod_evidence:
+      - "backend/requirements.txt updated with psycopg."
+      - ".env.example updated with Postgres DATABASE_URL example."
+    decisions:
+      - "Use psycopg driver for PostgreSQL connections."
+    open_questions: []
+    metrics:
+      stages_completed: 33
+      chapters_completed: 2
+  - status_id: "status-0067"
+    timestamp_tashkent: "2026-01-21T15:52:40+05:00"
+    current_position:
+      chapter_id: "CHAPTER 11"
+      stage_id: "STAGE 11.3"
+      stage_title: "Render Docker Deployment (Single Service)"
+    done:
+      summary:
+        - "Updated local env to Postgres DATABASE_URL for consistency."
+      details:
+        - "DATABASE_URL now uses postgresql+psycopg scheme."
+    next_actions_current_stage:
+      - "Create a multi-stage Dockerfile for frontend build + backend serve."
+      - "Configure Render Web Service to use the Dockerfile."
+      - "Ensure the service serves SPA and /api routes."
+    dod_evidence:
+      - ".env updated with Postgres DATABASE_URL."
+    decisions: []
+    open_questions: []
+    metrics:
+      stages_completed: 33
+      chapters_completed: 2
+  - status_id: "status-0068"
+    timestamp_tashkent: "2026-01-21T15:54:03+05:00"
+    current_position:
+      chapter_id: "CHAPTER 11"
+      stage_id: "STAGE 11.4"
+      stage_title: "Migrations + Owner Seed Strategy"
+    done:
+      summary:
+        - "Added single-container Docker build for Render deployment."
+      details:
+        - "Multi-stage Dockerfile builds React and serves static files from FastAPI."
+        - "Backend image installs Python deps and copies frontend dist into static root."
+    next_actions_current_stage:
+      - "Define how migrations are run on deploy."
+      - "Define initial owner/admin user creation strategy."
+      - "Document startup steps and env vars for Render."
+    dod_evidence:
+      - "Dockerfile created with multi-stage build."
+      - ".dockerignore added for build context hygiene."
+    decisions:
+      - "Use a single Docker image to serve API and SPA."
+    open_questions: []
+    metrics:
+      stages_completed: 34
+      chapters_completed: 2
+  - status_id: "status-0069"
+    timestamp_tashkent: "2026-01-21T15:56:38+05:00"
+    current_position:
+      chapter_id: "CHAPTER 11"
+      stage_id: "STAGE 11.4"
+      stage_title: "Migrations + Owner Seed Strategy"
+    done:
+      summary:
+        - "Defined migration and admin seeding strategy for deployment."
+      details:
+        - "Container entrypoint runs Alembic migrations and ensures the admin user exists."
+        - "Render deployment expectations documented in README."
+    next_actions_current_stage: []
+    dod_evidence:
+      - "backend/app/scripts/init_db.py added for migrations and seeding."
+      - "backend/entrypoint.sh added to run init and start uvicorn."
+      - "Dockerfile updated to use entrypoint.sh."
+      - "README.md updated with Render deployment notes."
+    decisions:
+      - "Run migrations and admin seeding on container start."
+    open_questions: []
+    metrics:
+      stages_completed: 35
+      chapters_completed: 2
+  - status_id: "status-0070"
+    timestamp_tashkent: "2026-01-21T16:01:42+05:00"
+    current_position:
+      chapter_id: "CHAPTER 11"
+      stage_id: "STAGE 11.4"
+      stage_title: "Migrations + Owner Seed Strategy"
+    done:
+      summary:
+        - "Documented initial admin credentials source."
+      details:
+        - "README now notes ADMIN_EMAIL and ADMIN_PASSWORD create the first admin."
+    next_actions_current_stage: []
+    dod_evidence:
+      - "README.md updated with admin credential note."
+    decisions: []
+    open_questions: []
+    metrics:
+      stages_completed: 35
+      chapters_completed: 2

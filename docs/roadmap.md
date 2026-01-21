@@ -234,3 +234,34 @@ Note: Stages 6.2 and 6.3 depend on the frontend skeleton and inventory UI.
 
 * Document frontend build output usage
 * Confirm CORS/cookie settings for deployment
+
+---
+
+## CHAPTER 11 — Deployment (Render Single Container)
+
+### STAGE 11.1 — Serve React Build From FastAPI
+
+* Build React app into `frontend/dist`
+* Serve static files from FastAPI at `/`
+* Provide SPA fallback to `index.html` for non-API routes
+* Keep all API routes under `/api/*`
+
+### STAGE 11.2 — Production Database (Postgres via DATABASE_URL)
+
+* Use `DATABASE_URL` for production (no SQLite on Render)
+* Add Postgres driver dependency for SQLAlchemy
+* Verify connection using `DATABASE_URL` in app config
+
+### STAGE 11.3 — Render Docker Deployment (Single Service)
+
+* Create a single multi-stage `Dockerfile`:
+  * Stage 1: `npm ci` + `npm run build` for React
+  * Stage 2: install backend deps and copy `frontend/dist` into backend static directory
+* Configure Render Web Service to use the Dockerfile
+* Ensure the service exposes the FastAPI app and serves the SPA
+
+### STAGE 11.4 — Migrations + Owner Seed Strategy
+
+* Define how migrations are run on deploy (one-time or on boot)
+* Define how the initial owner/admin user is created safely
+* Document expected env vars and startup steps for Render
