@@ -17,7 +17,7 @@ function Login() {
     setError(null)
     setLoading(true)
     try {
-      await login({ email, password })
+      await login({ email: email.trim(), password })
       navigate('/inventory')
     } catch (err) {
       setError(err.message || 'Login failed')
@@ -33,12 +33,12 @@ function Login() {
       </div>
       <div className="card">
         <h1>Sign in</h1>
-        <p className="muted">Use the owner/admin credentials from your .env.</p>
+        <p className="muted">Sign in with your administrator account.</p>
         <form onSubmit={onSubmit} className="stack">
           <label className="field">
-            <span>Email</span>
+            <span>Username</span>
             <input
-              type="email"
+              type="text"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
               required

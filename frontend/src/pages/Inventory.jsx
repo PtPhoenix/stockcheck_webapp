@@ -64,6 +64,7 @@ function Inventory() {
   })
   const prevLowStockCountRef = useRef(0)
   const prevLoginNonceRef = useRef(null)
+  const prevPopupEnabledRef = useRef(null)
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -162,13 +163,13 @@ function Inventory() {
     const storageUserKey = 'lowStockPopupUser'
     const storageKeyBase = `lowStockPopup:${user.email}`
     const previousUser = sessionStorage.getItem(storageUserKey)
-    const loginChanged = loginNonce && loginNonce !== prevLoginNonceRef.current
     prevLoginNonceRef.current = loginNonce
 
-    if (previousUser !== user.email || loginChanged) {
+    if (previousUser !== user.email) {
       sessionStorage.setItem(storageUserKey, user.email)
       sessionStorage.removeItem(`${storageKeyBase}:lastSeen`)
       sessionStorage.removeItem(`${storageKeyBase}:count`)
+      sessionStorage.removeItem(`${storageKeyBase}:lastShownCount`)
       prevLowStockCountRef.current = 0
       return
     }
@@ -211,18 +212,24 @@ function Inventory() {
     const cooldownMs = (lowStockSettings.popup_cooldown_hours || 24) * 60 * 60 * 1000
     const storageKeyBase = `lowStockPopup:${user?.email || 'guest'}`
     const lastSeen = Number(sessionStorage.getItem(`${storageKeyBase}:lastSeen`) || 0)
+    const lastShownCount = Number(sessionStorage.getItem(`${storageKeyBase}:lastShownCount`) || 0)
     const now = Date.now()
     const previousCount = prevLowStockCountRef.current
     const countIncreased = lowStockCount > previousCount
     prevLowStockCountRef.current = lowStockCount
     sessionStorage.setItem(`${storageKeyBase}:count`, String(lowStockCount))
     if (countIncreased) {
+      sessionStorage.setItem(`${storageKeyBase}:lastShownCount`, String(lowStockCount))
       setLowStockPopupOpen(true)
+      return
+    }
+    if (lastShownCount && lowStockCount <= lastShownCount) {
       return
     }
     if (now - lastSeen < cooldownMs) {
       return
     }
+    sessionStorage.setItem(`${storageKeyBase}:lastShownCount`, String(lowStockCount))
     setLowStockPopupOpen(true)
   }, [lowStockCount, lowStockSettings, user?.email])
 
@@ -234,6 +241,20 @@ function Inventory() {
       setLowStockPopupOpen(false)
     }
   }, [lowStockCount, lowStockPopupOpen, lowStockSettings.low_stock_popup_enabled])
+
+  useEffect(() => {
+    const storageKeyBase = `lowStockPopup:${user?.email || 'guest'}`
+    const previousValue = prevPopupEnabledRef.current
+    if (previousValue === null) {
+      prevPopupEnabledRef.current = lowStockSettings.low_stock_popup_enabled
+      return
+    }
+    if (previousValue && !lowStockSettings.low_stock_popup_enabled) {
+      sessionStorage.removeItem(`${storageKeyBase}:lastShownCount`)
+      sessionStorage.removeItem(`${storageKeyBase}:lastSeen`)
+    }
+    prevPopupEnabledRef.current = lowStockSettings.low_stock_popup_enabled
+  }, [lowStockSettings.low_stock_popup_enabled, user?.email])
 
   const onMovementAction = (type, item) => {
     setMovementInitial({ productId: item.id, type })

@@ -1433,3 +1433,212 @@ status_history:
     metrics:
       stages_completed: 31
       chapters_completed: 2
+  - status_id: "status-0055"
+    timestamp_tashkent: "2026-01-21T14:06:34+05:00"
+    current_position:
+      chapter_id: "CHAPTER 10"
+      stage_id: "STAGE 10.2"
+      stage_title: "Production Build Notes"
+    done:
+      summary:
+        - "User confirmed completion of STAGE 10.2."
+      details:
+        - "Project roadmap stages are complete."
+    next_actions_current_stage: []
+    dod_evidence:
+      - "User confirmation to finalize STAGE 10.2."
+    decisions: []
+    open_questions: []
+    metrics:
+      stages_completed: 31
+      chapters_completed: 2
+  - status_id: "status-0056"
+    timestamp_tashkent: "2026-01-21T14:18:02+05:00"
+    current_position:
+      chapter_id: "CHAPTER 10"
+      stage_id: "STAGE 10.2"
+      stage_title: "Production Build Notes"
+    done:
+      summary:
+        - "Added root .env with admin credentials and explicit database path."
+      details:
+        - "Configured DATABASE_URL to point to backend/app.db for consistent login."
+        - "Set admin login to use username 'admin' with a simple password."
+    next_actions_current_stage:
+      - "Restart backend to load the new .env settings."
+      - "Log in with admin/simplepass."
+    dod_evidence:
+      - ".env created in project root with updated credentials and DB URL."
+    decisions:
+      - "Use absolute SQLite path to avoid differing working directories."
+    open_questions: []
+    metrics:
+      stages_completed: 31
+      chapters_completed: 2
+  - status_id: "status-0057"
+    timestamp_tashkent: "2026-01-21T14:20:27+05:00"
+    current_position:
+      chapter_id: "CHAPTER 10"
+      stage_id: "STAGE 10.2"
+      stage_title: "Production Build Notes"
+    done:
+      summary:
+        - "Updated login form to accept non-email admin usernames."
+      details:
+        - "Login field now uses a text input with admin placeholder and trims whitespace."
+    next_actions_current_stage: []
+    dod_evidence:
+      - "frontend/src/pages/Login.jsx updated to use text input for username."
+    decisions:
+      - "Keep backend login payload key as email while allowing non-email values."
+    open_questions: []
+    metrics:
+      stages_completed: 31
+      chapters_completed: 2
+  - status_id: "status-0058"
+    timestamp_tashkent: "2026-01-21T14:25:58+05:00"
+    current_position:
+      chapter_id: "CHAPTER 10"
+      stage_id: "STAGE 10.2"
+      stage_title: "Production Build Notes"
+    done:
+      summary:
+        - "Aligned frontend API base URL to avoid auth cookie mismatch."
+      details:
+        - "Created frontend/.env with VITE_API_BASE_URL=http://127.0.0.1:8000."
+    next_actions_current_stage:
+      - "Restart frontend dev server to pick up the new environment value."
+    dod_evidence:
+      - "frontend/.env created with updated API base URL."
+    decisions:
+      - "Use 127.0.0.1 for both frontend API requests and backend host to keep cookies valid."
+    open_questions: []
+    metrics:
+      stages_completed: 31
+      chapters_completed: 2
+  - status_id: "status-0059"
+    timestamp_tashkent: "2026-01-21T14:30:00+05:00"
+    current_position:
+      chapter_id: "CHAPTER 10"
+      stage_id: "STAGE 10.2"
+      stage_title: "Production Build Notes"
+    done:
+      summary:
+        - "Aligned frontend and backend hostnames to fix auth cookie usage."
+      details:
+        - "Set frontend API base URL to http://localhost:8000."
+        - "Set FRONTEND_ORIGIN to http://localhost:5173."
+    next_actions_current_stage:
+      - "Restart backend and frontend to load new env values."
+    dod_evidence:
+      - ".env updated with localhost origin."
+      - "frontend/.env updated with localhost API base URL."
+    decisions:
+      - "Use localhost for both frontend and backend to keep cookies consistent."
+    open_questions: []
+    metrics:
+      stages_completed: 31
+      chapters_completed: 2
+  - status_id: "status-0060"
+    timestamp_tashkent: "2026-01-21T14:33:18+05:00"
+    current_position:
+      chapter_id: "CHAPTER 10"
+      stage_id: "STAGE 10.2"
+      stage_title: "Production Build Notes"
+    done:
+      summary:
+        - "Prevented low-stock popup from reappearing when navigating back to inventory."
+      details:
+        - "Popup Close now suppresses repeats until low-stock count increases."
+        - "Dismiss still respects cooldown and clears the suppression state."
+    next_actions_current_stage: []
+    dod_evidence:
+      - "frontend/src/pages/Inventory.jsx updated with closedCount suppression."
+    decisions:
+      - "Treat Close as a temporary hide until low-stock count grows."
+    open_questions: []
+    metrics:
+      stages_completed: 31
+      chapters_completed: 2
+  - status_id: "status-0061"
+    timestamp_tashkent: "2026-01-21T15:11:10+05:00"
+    current_position:
+      chapter_id: "CHAPTER 10"
+      stage_id: "STAGE 10.2"
+      stage_title: "Production Build Notes"
+    done:
+      summary:
+        - "Removed username placeholder from login form."
+      details:
+        - "Login username field now stays empty without example text."
+    next_actions_current_stage: []
+    dod_evidence:
+      - "frontend/src/pages/Login.jsx updated to remove placeholder."
+    decisions: []
+    open_questions: []
+    metrics:
+      stages_completed: 31
+      chapters_completed: 2
+  - status_id: "status-0062"
+    timestamp_tashkent: "2026-01-21T15:16:14+05:00"
+    current_position:
+      chapter_id: "CHAPTER 10"
+      stage_id: "STAGE 10.2"
+      stage_title: "Production Build Notes"
+    done:
+      summary:
+        - "Stopped low-stock popup from reappearing on navigation without count changes."
+        - "Updated login copy to production-style messaging."
+      details:
+        - "Popup now tracks last shown count across page navigation and only reopens on count increase."
+        - "Login screen no longer references .env for credentials."
+    next_actions_current_stage: []
+    dod_evidence:
+      - "frontend/src/pages/Inventory.jsx updated with lastShownCount handling."
+      - "frontend/src/pages/Login.jsx updated with production-ready copy."
+    decisions:
+      - "Use last shown count as the suppression key for popup re-display."
+    open_questions: []
+    metrics:
+      stages_completed: 31
+      chapters_completed: 2
+  - status_id: "status-0063"
+    timestamp_tashkent: "2026-01-21T15:21:54+05:00"
+    current_position:
+      chapter_id: "CHAPTER 10"
+      stage_id: "STAGE 10.2"
+      stage_title: "Production Build Notes"
+    done:
+      summary:
+        - "Stopped low-stock popup from resetting on relogin."
+      details:
+        - "Popup suppression state now persists across login events and page navigation."
+    next_actions_current_stage: []
+    dod_evidence:
+      - "frontend/src/pages/Inventory.jsx updated to avoid clearing popup state on login."
+    decisions:
+      - "Only reset popup state when the user identity changes."
+    open_questions: []
+    metrics:
+      stages_completed: 31
+      chapters_completed: 2
+  - status_id: "status-0064"
+    timestamp_tashkent: "2026-01-21T15:24:37+05:00"
+    current_position:
+      chapter_id: "CHAPTER 10"
+      stage_id: "STAGE 10.2"
+      stage_title: "Production Build Notes"
+    done:
+      summary:
+        - "Reset low-stock popup suppression when the setting is turned off."
+      details:
+        - "Disabling the popup clears last shown count so it shows once after re-enable."
+    next_actions_current_stage: []
+    dod_evidence:
+      - "frontend/src/pages/Inventory.jsx updated with popup enable/disable tracking."
+    decisions:
+      - "Popup state resets only when the setting transitions from on to off."
+    open_questions: []
+    metrics:
+      stages_completed: 31
+      chapters_completed: 2
