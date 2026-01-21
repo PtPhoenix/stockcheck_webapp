@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.auth import router as auth_router
+from app.api.export import router as export_router
 from app.api.movements import router as movements_router
 from app.api.products import router as products_router
 from app.api.settings import router as settings_router
@@ -20,6 +21,7 @@ app.add_middleware(
 )
 
 app.include_router(auth_router)
+app.include_router(export_router)
 app.include_router(movements_router)
 app.include_router(products_router)
 app.include_router(settings_router)

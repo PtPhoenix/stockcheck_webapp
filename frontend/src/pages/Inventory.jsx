@@ -7,6 +7,8 @@ import {
   createProduct,
   deactivateProduct,
   deleteProduct,
+  exportProductsCsv,
+  exportStockOverviewCsv,
   getLowStockCount,
   getSettings,
   getStockOverview,
@@ -26,6 +28,8 @@ function Inventory() {
   const [total, setTotal] = useState(0)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
+  const [exportError, setExportError] = useState(null)
+  const [exporting, setExporting] = useState(false)
   const [stockRefresh, setStockRefresh] = useState(0)
   const [productSearchInput, setProductSearchInput] = useState('')
   const [productSearch, setProductSearch] = useState('')
@@ -243,6 +247,32 @@ function Inventory() {
     onPopupClose()
   }
 
+  const handleExport = async (action) => {
+    setExportError(null)
+    setExporting(true)
+    try {
+      await action()
+    } catch (err) {
+      setExportError(err.message || 'Unable to export data.')
+    } finally {
+      setExporting(false)
+    }
+  }
+
+  const onExportOverview = () =>
+    handleExport(() =>
+      exportStockOverviewCsv({
+        search,
+        lowStockOnly,
+        sortBy,
+        sortDir,
+        lowStockFirst: lowStockSettings.low_stock_pin_enabled,
+      })
+    )
+
+  const onExportProducts = () => handleExport(() => exportProductsCsv())
+
+
   const openCreateProduct = () => {
     setEditingProduct(null)
     setProductForm({
@@ -459,6 +489,9 @@ function Inventory() {
                 <option value="desc">Descending</option>
               </select>
             </label>
+            <button type="button" className="ghost" onClick={onExportOverview} disabled={exporting}>
+              Export overview
+            </button>
             <button type="button" onClick={openMovementModal}>
               New movement
             </button>
@@ -466,6 +499,7 @@ function Inventory() {
         </div>
 
         {error ? <div className="error">{error}</div> : null}
+        {exportError ? <div className="error">{exportError}</div> : null}
 
         <div className="table-wrap">
           <table className="inventory-table">
@@ -576,6 +610,9 @@ function Inventory() {
                 <option value="asc">Ascending</option>
               </select>
             </label>
+            <button type="button" className="ghost" onClick={onExportProducts} disabled={exporting}>
+              Export products
+            </button>
             <button type="button" onClick={openCreateProduct}>
               New product
             </button>

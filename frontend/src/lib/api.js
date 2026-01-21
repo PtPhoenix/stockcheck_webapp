@@ -145,3 +145,79 @@ export async function updateSettings(payload) {
 export async function getLowStockCount() {
   return request('/stock/low/count', { method: 'GET' })
 }
+
+async function downloadCsv(path, fallbackFilename) {
+  const response = await fetch(`${API_BASE_URL}${path}`, {
+    credentials: 'include',
+  })
+
+  if (!response.ok) {
+    let message = `Request failed with status ${response.status}`
+    try {
+      const payload = await response.json()
+      message = payload?.detail || message
+    } catch (error) {
+      message = message
+    }
+    const err = new Error(message)
+    err.status = response.status
+    throw err
+  }
+
+  const blob = await response.blob()
+  const disposition = response.headers.get('Content-Disposition') || ''
+  const match = disposition.match(/filename="([^"]+)"/)
+  const filename = match ? match[1] : fallbackFilename
+  const url = window.URL.createObjectURL(blob)
+  const link = document.createElement('a')
+  link.href = url
+  link.download = filename
+  document.body.appendChild(link)
+  link.click()
+  link.remove()
+  window.URL.revokeObjectURL(url)
+}
+
+export async function exportProductsCsv() {
+  return downloadCsv('/export/products.csv', 'products.csv')
+}
+
+export async function exportMovementsCsv({ startAt, endAt } = {}) {
+  const params = new URLSearchParams()
+  if (startAt) {
+    params.set('start_at', startAt)
+  }
+  if (endAt) {
+    params.set('end_at', endAt)
+  }
+  const query = params.toString()
+  const path = query ? `/export/movements.csv?${query}` : '/export/movements.csv'
+  return downloadCsv(path, 'movements.csv')
+}
+
+export async function exportStockOverviewCsv({
+  search,
+  lowStockOnly = false,
+  sortBy = 'name',
+  sortDir = 'asc',
+  lowStockFirst = false,
+  activeOnly = true,
+} = {}) {
+  const params = new URLSearchParams()
+  if (search) {
+    params.set('search', search)
+  }
+  if (lowStockOnly) {
+    params.set('low_stock_only', 'true')
+  }
+  if (!activeOnly) {
+    params.set('active_only', 'false')
+  }
+  if (lowStockFirst) {
+    params.set('low_stock_first', 'true')
+  }
+  params.set('sort_by', sortBy)
+  params.set('sort_dir', sortDir)
+  const query = params.toString()
+  return downloadCsv(`/export/stock_overview.csv?${query}`, 'stock_overview.csv')
+}

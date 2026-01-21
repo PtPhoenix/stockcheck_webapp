@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 import MovementModal from '../components/MovementModal.jsx'
 import ThemeToggle from '../components/ThemeToggle.jsx'
-import { listMovements, listProducts } from '../lib/api.js'
+import { exportMovementsCsv, listMovements, listProducts } from '../lib/api.js'
 import { useAuth } from '../state/auth.jsx'
 
 function Movements() {
@@ -16,6 +16,8 @@ function Movements() {
   const [total, setTotal] = useState(0)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
+  const [exportError, setExportError] = useState(null)
+  const [exporting, setExporting] = useState(false)
   const [movementModalOpen, setMovementModalOpen] = useState(false)
   const [refresh, setRefresh] = useState(0)
 
@@ -91,6 +93,20 @@ function Movements() {
 
   const itemLabel = total === 1 ? 'movement' : 'movements'
 
+  const handleExport = async (action) => {
+    setExportError(null)
+    setExporting(true)
+    try {
+      await action()
+    } catch (err) {
+      setExportError(err.message || 'Unable to export data.')
+    } finally {
+      setExporting(false)
+    }
+  }
+
+  const onExportMovements = () => handleExport(() => exportMovementsCsv())
+
   return (
     <div className="page inventory-page">
       <header className="topbar">
@@ -138,6 +154,9 @@ function Movements() {
                 <option value="OUT">OUT</option>
               </select>
             </label>
+            <button type="button" className="ghost" onClick={onExportMovements} disabled={exporting}>
+              Export movements
+            </button>
             <button type="button" onClick={() => setMovementModalOpen(true)}>
               New movement
             </button>
@@ -146,6 +165,7 @@ function Movements() {
 
         {productsError ? <div className="error">{productsError}</div> : null}
         {error ? <div className="error">{error}</div> : null}
+        {exportError ? <div className="error">{exportError}</div> : null}
 
         <div className="table-wrap">
           <table className="inventory-table">

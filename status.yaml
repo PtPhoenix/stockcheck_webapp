@@ -1023,3 +1023,155 @@ status_history:
     metrics:
       stages_completed: 23
       chapters_completed: 1
+  - status_id: "status-0038"
+    timestamp_tashkent: "2026-01-21T12:56:19+05:00"
+    current_position:
+      chapter_id: "CHAPTER 8"
+      stage_id: "STAGE 8.1"
+      stage_title: "Export API"
+    done:
+      summary:
+        - "Applied low-stock pin-to-top behavior in inventory requests."
+      details:
+        - "Inventory overview requests now pass low_stock_first when pin-to-top is enabled."
+        - "Standard sorting remains in place when the pin-to-top setting is disabled."
+    next_actions_current_stage:
+      - "Implement GET /export/products.csv."
+      - "Implement GET /export/movements.csv (optional date filtering)."
+      - "Ensure UTF-8 encoding and spreadsheet compatibility."
+    dod_evidence:
+      - "frontend/src/pages/Inventory.jsx updated to conditionally pass low_stock_first."
+      - "frontend/src/lib/api.js updated with low_stock_first query parameter support."
+    decisions: []
+    open_questions: []
+    metrics:
+      stages_completed: 24
+      chapters_completed: 1
+  - status_id: "status-0039"
+    timestamp_tashkent: "2026-01-21T12:59:47+05:00"
+    current_position:
+      chapter_id: "CHAPTER 8"
+      stage_id: "STAGE 8.2"
+      stage_title: "Export UI"
+    done:
+      summary:
+        - "Implemented CSV export API for products and movements."
+      details:
+        - "Added /export/products.csv with product fields plus computed balance."
+        - "Added /export/movements.csv with optional start_at/end_at filtering."
+        - "CSV responses include UTF-8 BOM for spreadsheet compatibility."
+    next_actions_current_stage:
+      - "Add export buttons to the inventory page."
+      - "Trigger CSV download from frontend."
+    dod_evidence:
+      - "backend/app/api/export.py created with CSV export endpoints."
+      - "backend/app/main.py updated to include export router."
+    decisions:
+      - "CSV responses use UTF-8 with BOM for spreadsheet-friendly downloads."
+      - "Movement export supports start_at/end_at ISO datetime filters."
+    open_questions: []
+    metrics:
+      stages_completed: 25
+      chapters_completed: 1
+  - status_id: "status-0040"
+    timestamp_tashkent: "2026-01-21T13:03:05+05:00"
+    current_position:
+      chapter_id: "CHAPTER 8"
+      stage_id: "STAGE 8.1"
+      stage_title: "Export API"
+    done:
+      summary:
+        - "Implemented CSV export API for products and movements."
+      details:
+        - "Added /export/products.csv with product fields plus computed balance."
+        - "Added /export/movements.csv with optional start_at/end_at filtering."
+        - "CSV responses include UTF-8 BOM for spreadsheet compatibility."
+    next_actions_current_stage:
+      - "Consider adding export for stock overview (if approved)."
+      - "Implement GET /export/stock_overview.csv if needed."
+      - "Ensure UTF-8 encoding and spreadsheet compatibility."
+    dod_evidence:
+      - "backend/app/api/export.py created with CSV export endpoints."
+      - "backend/app/main.py updated to include export router."
+    decisions:
+      - "Current stage remains STAGE 8.1 until user confirms moving on."
+    open_questions: []
+    metrics:
+      stages_completed: 24
+      chapters_completed: 1
+  - status_id: "status-0041"
+    timestamp_tashkent: "2026-01-21T13:04:14+05:00"
+    current_position:
+      chapter_id: "CHAPTER 8"
+      stage_id: "STAGE 8.1"
+      stage_title: "Export API"
+    done:
+      summary:
+        - "Implemented CSV export API for products, movements, and stock overview."
+      details:
+        - "Added /export/products.csv with product fields plus computed balance."
+        - "Added /export/movements.csv with optional start_at/end_at filtering."
+        - "Added /export/stock_overview.csv with the same filters as /stock/overview."
+        - "CSV responses include UTF-8 BOM for spreadsheet compatibility."
+    next_actions_current_stage:
+      - "Request confirmation to proceed to STAGE 8.2 (Export UI)."
+    dod_evidence:
+      - "backend/app/api/export.py updated with stock overview CSV export."
+      - "backend/app/api/export.py contains products and movements CSV exports."
+      - "backend/app/main.py includes export router."
+    decisions:
+      - "Stock overview export reuses the same filter and sort rules as /stock/overview."
+    open_questions: []
+    metrics:
+      stages_completed: 25
+      chapters_completed: 1
+  - status_id: "status-0042"
+    timestamp_tashkent: "2026-01-21T13:06:47+05:00"
+    current_position:
+      chapter_id: "CHAPTER 9"
+      stage_id: "STAGE 9.1"
+      stage_title: "Backend Validation Rules"
+    done:
+      summary:
+        - "Added export buttons and CSV download flow on the inventory page."
+      details:
+        - "Inventory page now triggers CSV downloads for stock overview, products, and movements."
+        - "Frontend CSV downloads use authenticated fetch and blob download to include cookies."
+    next_actions_current_stage:
+      - "Enforce quantity > 0 for movements."
+      - "Enforce min_stock >= 0 for products."
+      - "Prevent invalid movement types."
+    dod_evidence:
+      - "frontend/src/pages/Inventory.jsx updated with export buttons and handlers."
+      - "frontend/src/lib/api.js updated with CSV download helpers."
+    decisions:
+      - "CSV downloads use fetch + blob to preserve HttpOnly cookie authentication."
+    open_questions: []
+    metrics:
+      stages_completed: 26
+      chapters_completed: 1
+  - status_id: "status-0043"
+    timestamp_tashkent: "2026-01-21T13:09:33+05:00"
+    current_position:
+      chapter_id: "CHAPTER 8"
+      stage_id: "STAGE 8.2"
+      stage_title: "Export UI"
+    done:
+      summary:
+        - "Moved export buttons to their relevant pages and sections."
+      details:
+        - "Stock overview export remains in the inventory stock overview controls."
+        - "Products export moved to the product management controls."
+        - "Movements export moved to the movements page controls."
+    next_actions_current_stage:
+      - "Request confirmation to proceed to STAGE 9.1 (Backend Validation Rules)."
+    dod_evidence:
+      - "frontend/src/pages/Inventory.jsx updated to keep only stock overview export in stock controls."
+      - "frontend/src/pages/Inventory.jsx updated with products export in product management controls."
+      - "frontend/src/pages/Movements.jsx updated with movements export button and handler."
+    decisions:
+      - "Export actions are placed on the page that owns the data context."
+    open_questions: []
+    metrics:
+      stages_completed: 26
+      chapters_completed: 1
