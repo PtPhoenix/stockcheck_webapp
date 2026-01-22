@@ -1981,3 +1981,23 @@ status_history:
     metrics:
       stages_completed: 35
       chapters_completed: 2
+  - status_id: "status-0081"
+    timestamp_tashkent: "2026-01-22T18:46:20+05:00"
+    current_position:
+      chapter_id: "CHAPTER 11"
+      stage_id: "STAGE 11.4"
+      stage_title: "Migrations + Owner Seed Strategy"
+    done:
+      summary:
+        - "Stopped login-triggered popup resets on page navigation."
+      details:
+        - "Login nonce is now stored in sessionStorage to persist across remounts."
+    next_actions_current_stage: []
+    dod_evidence:
+      - "frontend/src/pages/Inventory.jsx updated login nonce tracking."
+    decisions:
+      - "Persist login marker in sessionStorage to avoid repeated resets."
+    open_questions: []
+    metrics:
+      stages_completed: 35
+      chapters_completed: 2

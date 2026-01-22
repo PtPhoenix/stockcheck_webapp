@@ -63,7 +63,6 @@ function Inventory() {
     popup_cooldown_hours: 24,
   })
   const prevLowStockCountRef = useRef(0)
-  const prevLoginNonceRef = useRef(null)
   const prevPopupEnabledRef = useRef(null)
 
   useEffect(() => {
@@ -163,16 +162,23 @@ function Inventory() {
     const storageUserKey = 'lowStockPopupUser'
     const storageKeyBase = `lowStockPopup:${user.email}`
     const previousUser = sessionStorage.getItem(storageUserKey)
-    const loginChanged = loginNonce && loginNonce !== prevLoginNonceRef.current
-    prevLoginNonceRef.current = loginNonce
+    const storedLoginNonce = sessionStorage.getItem(`${storageKeyBase}:loginNonce`)
+    const loginChanged =
+      loginNonce && String(loginNonce) !== (storedLoginNonce || '')
 
     if (previousUser !== user.email || loginChanged) {
       sessionStorage.setItem(storageUserKey, user.email)
+      if (loginNonce) {
+        sessionStorage.setItem(`${storageKeyBase}:loginNonce`, String(loginNonce))
+      }
       sessionStorage.removeItem(`${storageKeyBase}:lastSeen`)
       sessionStorage.removeItem(`${storageKeyBase}:count`)
       sessionStorage.removeItem(`${storageKeyBase}:lastShownCount`)
       prevLowStockCountRef.current = 0
       return
+    }
+    if (loginNonce && !storedLoginNonce) {
+      sessionStorage.setItem(`${storageKeyBase}:loginNonce`, String(loginNonce))
     }
     const storedCount = Number(sessionStorage.getItem(`${storageKeyBase}:count`) || 0)
     prevLowStockCountRef.current = Number.isNaN(storedCount) ? 0 : storedCount
