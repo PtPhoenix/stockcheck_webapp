@@ -1902,3 +1902,82 @@ status_history:
     metrics:
       stages_completed: 35
       chapters_completed: 2
+  - status_id: "status-0077"
+    timestamp_tashkent: "2026-01-22T18:12:52+05:00"
+    current_position:
+      chapter_id: "CHAPTER 11"
+      stage_id: "STAGE 11.4"
+      stage_title: "Migrations + Owner Seed Strategy"
+    done:
+      summary:
+        - "Changed low-stock popup close control to a cross icon."
+      details:
+        - "Popup header close button now displays × with an aria-label."
+    next_actions_current_stage: []
+    dod_evidence:
+      - "frontend/src/pages/Inventory.jsx updated close button label."
+    decisions: []
+    open_questions: []
+    metrics:
+      stages_completed: 35
+      chapters_completed: 2
+  - status_id: "status-0078"
+    timestamp_tashkent: "2026-01-22T18:16:23+05:00"
+    current_position:
+      chapter_id: "CHAPTER 11"
+      stage_id: "STAGE 11.4"
+      stage_title: "Migrations + Owner Seed Strategy"
+    done:
+      summary:
+        - "Simplified popup close control to a larger standalone × icon."
+      details:
+        - "Removed ghost/mini button styling and added close-x styling."
+    next_actions_current_stage: []
+    dod_evidence:
+      - "frontend/src/pages/Inventory.jsx updated close button class."
+      - "frontend/src/index.css added close-x styles."
+    decisions: []
+    open_questions: []
+    metrics:
+      stages_completed: 35
+      chapters_completed: 2
+  - status_id: "status-0079"
+    timestamp_tashkent: "2026-01-22T18:21:31+05:00"
+    current_position:
+      chapter_id: "CHAPTER 11"
+      stage_id: "STAGE 11.4"
+      stage_title: "Migrations + Owner Seed Strategy"
+    done:
+      summary:
+        - "Restored cooldown-driven popup reappearance after dismiss."
+      details:
+        - "Cooldown now overrides lastShownCount suppression when a dismiss time exists."
+    next_actions_current_stage: []
+    dod_evidence:
+      - "frontend/src/pages/Inventory.jsx updated cooldown handling."
+    decisions:
+      - "Allow popup to reappear after cooldown even if low-stock count is unchanged."
+    open_questions: []
+    metrics:
+      stages_completed: 35
+      chapters_completed: 2
+  - status_id: "status-0080"
+    timestamp_tashkent: "2026-01-22T18:33:21+05:00"
+    current_position:
+      chapter_id: "CHAPTER 11"
+      stage_id: "STAGE 11.4"
+      stage_title: "Migrations + Owner Seed Strategy"
+    done:
+      summary:
+        - "Aligned low-stock popup rules with login, cooldown, and settings toggles."
+      details:
+        - "Popup shows once after login or enablement, respects cooldown thereafter, and stays hidden during navigation."
+    next_actions_current_stage: []
+    dod_evidence:
+      - "frontend/src/pages/Inventory.jsx updated popup decision flow."
+    decisions:
+      - "Login resets popup suppression state while page navigation does not."
+    open_questions: []
+    metrics:
+      stages_completed: 35
+      chapters_completed: 2

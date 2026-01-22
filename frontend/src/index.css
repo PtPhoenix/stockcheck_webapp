@@ -159,6 +159,24 @@ button.mini {
   font-size: 0.85rem;
 }
 
+button.close-x {
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  padding: 0;
+  font-size: 1.4rem;
+  line-height: 1;
+  color: var(--text);
+  box-shadow: none;
+  transform: none;
+}
+
+button.close-x:hover {
+  box-shadow: none;
+  transform: none;
+  opacity: 0.7;
+}
+
 .link-button {
   display: inline-flex;
   align-items: center;

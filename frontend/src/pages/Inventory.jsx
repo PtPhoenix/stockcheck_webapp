@@ -163,9 +163,10 @@ function Inventory() {
     const storageUserKey = 'lowStockPopupUser'
     const storageKeyBase = `lowStockPopup:${user.email}`
     const previousUser = sessionStorage.getItem(storageUserKey)
+    const loginChanged = loginNonce && loginNonce !== prevLoginNonceRef.current
     prevLoginNonceRef.current = loginNonce
 
-    if (previousUser !== user.email) {
+    if (previousUser !== user.email || loginChanged) {
       sessionStorage.setItem(storageUserKey, user.email)
       sessionStorage.removeItem(`${storageKeyBase}:lastSeen`)
       sessionStorage.removeItem(`${storageKeyBase}:count`)
@@ -223,7 +224,12 @@ function Inventory() {
       setLowStockPopupOpen(true)
       return
     }
-    if (lastShownCount && lowStockCount <= lastShownCount) {
+    if (lastSeen === 0 && lastShownCount && lowStockCount <= lastShownCount) {
+      return
+    }
+    if (lastSeen === 0) {
+      sessionStorage.setItem(`${storageKeyBase}:lastShownCount`, String(lowStockCount))
+      setLowStockPopupOpen(true)
       return
     }
     if (now - lastSeen < cooldownMs) {
@@ -864,8 +870,8 @@ function Inventory() {
                   {lowStockCount} {lowStockCount === 1 ? 'product' : 'products'} below minimum.
                 </p>
               </div>
-              <button type="button" className="ghost mini" onClick={onPopupHide}>
-                Close
+              <button type="button" className="close-x" onClick={onPopupHide} aria-label="Close">
+                ×
               </button>
             </div>
             <div className="modal-actions">
