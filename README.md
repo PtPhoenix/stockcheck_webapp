@@ -1,6 +1,7 @@
 # StockCheck Web App (MVP)
 
-Inventory management web app for small stores and warehouses. It tracks products, incoming/outgoing stock, and highlights low inventory so you can restock in time.
+Inventory Management for Small Retail & Warehouses
+Helps small business owners track stock levels, view incoming/outgoing transactions, and receive alerts before running out of stock — deployed and ready to use.
 
 ## Demo
 
